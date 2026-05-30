@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Architecture / UGC World</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --panel: #141414;
+    --panel-2: #1a1a1a;
+    --border: #2a2a2a;
+    --border-2: #333;
+    --text: #e8e8e8;
+    --muted: #888;
+    --dim: #555;
+    --green: #4ade80;
+    --green-bg: #0f2a1c;
+    --yellow: #fbbf24;
+    --yellow-bg: #2e2210;
+    --red: #f87171;
+    --red-bg: #2e1414;
+    --blue: #60a5fa;
+    --blue-bg: #0f1f33;
+    --purple: #c084fc;
+    --purple-bg: #211433;
+    --orange: #fb923c;
+    --orange-bg: #2e1f10;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { padding: 28px 32px 64px; max-width: 1480px; margin: 0 auto; }
+  .mono { font-family: 'SF Mono', Menlo, Consolas, monospace; }
+
+  /* Header */
+  header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+  h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+  h1 .accent { color: var(--green); }
+  .meta { color: var(--muted); font-size: 11px; font-family: 'SF Mono', monospace; }
+  .meta .sep { color: var(--dim); margin: 0 8px; }
+
+  /* Keystone bar */
+  .keystone { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .stat .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .stat .value { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; font-family: 'SF Mono', monospace; }
+  .stat .sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .stat.green .value { color: var(--green); }
+  .stat.yellow .value { color: var(--yellow); }
+  .stat.blue .value { color: var(--blue); }
+  .stat.purple .value { color: var(--purple); }
+  .stat.orange .value { color: var(--orange); }
+
+  /* Section */
+  section { margin-bottom: 36px; }
+  h2 { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  h2 .num { color: var(--green); font-family: 'SF Mono', monospace; }
+  h2 .rule { flex: 1; height: 1px; background: var(--border); }
+
+  /* Tag Spine */
+  .spine { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .spine-col { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .spine-col h3 { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .spine-col .rule { font-size: 11px; color: var(--dim); margin-bottom: 10px; font-style: italic; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-size: 10.5px; padding: 3px 8px; border-radius: 4px; background: #1d1d1d; color: var(--text); font-family: 'SF Mono', monospace; border: 1px solid #252525; }
+  .chip.green { background: var(--green-bg); color: var(--green); border-color: #1d4030; }
+  .chip.yellow { background: var(--yellow-bg); color: var(--yellow); border-color: #4a3416; }
+  .chip.red { background: var(--red-bg); color: var(--red); border-color: #4a1f1f; }
+  .chip.blue { background: var(--blue-bg); color: var(--blue); border-color: #1a2e4d; }
+  .chip.purple { background: var(--purple-bg); color: var(--purple); border-color: #321f4d; }
+  .chip.orange { background: var(--orange-bg); color: var(--orange); border-color: #4a2f1a; }
+
+  /* Flows */
+  .flows { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .flow { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .flow-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .flow-tag { font-size: 10px; font-weight: 700; color: var(--green); background: var(--green-bg); padding: 2px 8px; border-radius: 4px; letter-spacing: 0.05em; }
+  .flow-title { font-size: 15px; font-weight: 600; }
+  .flow-sub { font-size: 11px; color: var(--muted); margin-left: auto; font-family: 'SF Mono', monospace; }
+
+  /* Flow diagram */
+  .diagram { display: flex; flex-direction: column; gap: 10px; font-family: 'SF Mono', monospace; font-size: 12px; }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .row.center { justify-content: flex-start; }
+
+  .node {
+    display: inline-flex; align-items: center;
+    padding: 5px 11px; border-radius: 5px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    font-size: 11.5px; white-space: nowrap;
+  }
+  .node.entry { background: var(--blue-bg); color: var(--blue); border-color: #1a2e4d; }
+  .node.email { background: #1a1a1a; color: var(--text); border-color: #2a2a2a; }
+  .node.action { background: var(--yellow-bg); color: var(--yellow); border-color: #4a3416; }
+  .node.event { background: #1f1f1f; color: var(--text); border-color: var(--border-2); font-style: italic; }
+  .node.success { background: var(--green-bg); color: var(--green); border-color: #1d4030; }
+  .node.fail { background: var(--red-bg); color: var(--red); border-color: #4a1f1f; }
+  .node.exit { background: var(--purple-bg); color: var(--purple); border-color: #321f4d; }
+
+  .arr { color: var(--dim); font-size: 14px; }
+  .arr-down { color: var(--dim); font-size: 16px; padding-left: 8px; }
+  .label { color: var(--muted); font-size: 10.5px; }
+  .if { color: var(--yellow); font-weight: 600; font-size: 11px; }
+  .then { color: var(--green); font-size: 11px; }
+
+  .branch { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: start; padding: 10px 12px; background: #161616; border-radius: 6px; border: 1px solid var(--border); }
+  .branch-label { color: var(--yellow); font-weight: 600; font-size: 11px; padding-top: 4px; }
+  .branch-body { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+  .seq { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 10px; background: #161616; border-radius: 6px; border: 1px dashed var(--border-2); }
+  .seq-label { color: var(--muted); font-size: 10.5px; padding-right: 8px; border-right: 1px solid var(--border); margin-right: 4px; }
+
+  /* Cadence */
+  .cadence { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .day { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px 12px; }
+  .day .name { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
+  .day .type { font-size: 12px; font-weight: 600; margin-top: 6px; }
+  .day .desc { font-size: 10.5px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+  .day.rest { background: #0f0f0f; }
+  .day.rest .name { color: var(--dim); }
+  .day.rest .type { color: var(--dim); }
+  .day.story .type { color: var(--green); }
+  .day.pov .type { color: var(--blue); }
+  .day.proof .type { color: var(--purple); }
+  .day.teach .type { color: var(--orange); }
+  .day.qa .type { color: var(--yellow); }
+  .day.reflect .type { color: var(--green); }
+
+  /* Two col */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .panel h3 { font-size: 13px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .panel h3 .badge { font-size: 9.5px; padding: 2px 6px; border-radius: 3px; background: var(--green-bg); color: var(--green); font-weight: 700; letter-spacing: 0.05em; }
+
+  .stack { list-style: none; padding: 0; }
+  .stack li { padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 10px; }
+  .stack li:last-child { border-bottom: none; }
+  .stack .n { color: var(--dim); font-family: 'SF Mono', monospace; font-size: 11px; min-width: 18px; }
+  .stack .lbl { font-size: 12px; flex: 1; }
+  .stack .why { color: var(--muted); font-size: 10.5px; font-family: 'SF Mono', monospace; }
+
+  .loop { display: flex; flex-direction: column; gap: 8px; }
+  .loop-step { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; font-size: 11.5px; }
+  .loop-step .from { color: var(--text); }
+  .loop-step .a { color: var(--dim); }
+  .loop-step .to { color: var(--green); font-weight: 500; }
+
+  /* Swipe panel */
+  .swipes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .swipe { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .swipe h3 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .swipe .role { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .swipe ul { list-style: none; padding: 0; }
+  .swipe li { font-size: 11.5px; padding: 4px 0; color: var(--text); position: relative; padding-left: 14px; }
+  .swipe li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-family: 'SF Mono', monospace; }
+
+  /* Build timeline */
+  .timeline { display: grid; grid-template-columns: repeat(14, 1fr); gap: 4px; margin-top: 8px; }
+  .tl-day { padding: 8px 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; text-align: center; font-size: 10px; }
+  .tl-day .d { color: var(--muted); font-weight: 600; }
+  .tl-day .t { color: var(--text); margin-top: 4px; font-size: 9.5px; line-height: 1.2; }
+  .tl-day.copy { background: #1a2010; border-color: #2d3a1a; }
+  .tl-day.wire { background: #15263d; border-color: #1a2e4d; }
+  .tl-day.live { background: #0f2a1c; border-color: #1d4030; }
+  .tl-day.doc { background: #211433; border-color: #321f4d; }
+
+  /* Footer note */
+  .note { font-size: 11px; color: var(--muted); padding: 12px 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 6px; line-height: 1.6; }
+  .note .key { color: var(--yellow); font-weight: 600; }
+
+  /* SOP deep dive */
+  .sop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .sop-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 0; overflow: hidden; }
+  .sop-head { padding: 16px 18px 12px; border-bottom: 1px solid var(--border); }
+  .sop-card.fazio .sop-head { background: linear-gradient(180deg, rgba(96,165,250,0.08), transparent); }
+  .sop-card.morgan .sop-head { background: linear-gradient(180deg, rgba(192,132,252,0.08), transparent); }
+  .sop-card.ericson .sop-head { background: linear-gradient(180deg, rgba(74,222,128,0.08), transparent); }
+  .sop-name { font-size: 14px; font-weight: 700; letter-spacing: 0.04em; }
+  .sop-card.fazio .sop-name { color: var(--blue); }
+  .sop-card.morgan .sop-name { color: var(--purple); }
+  .sop-card.ericson .sop-name { color: var(--green); }
+  .sop-bizline { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .sop-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .sop-table tr { border-bottom: 1px solid var(--border); }
+  .sop-table tr:last-child { border-bottom: none; }
+  .sop-table td { padding: 8px 14px; vertical-align: top; }
+  .sop-table td.dim { width: 36%; color: var(--muted); font-family: 'SF Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+  .sop-table td:not(.dim) { color: var(--text); line-height: 1.5; }
+
+  /* GHL audit */
+  .ghl-audit { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+  .audit-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .audit-tag { font-size: 9.5px; font-weight: 700; color: var(--orange); background: var(--orange-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .audit-title { font-size: 15px; font-weight: 600; }
+  .audit-stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 18px; }
+  .astat { background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; }
+  .astat .av { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; font-family: 'SF Mono', monospace; }
+  .astat .al { font-size: 10.5px; color: var(--muted); margin-top: 4px; }
+  .astat.green-text .av { color: var(--green); }
+  .astat.yellow-text .av { color: var(--yellow); }
+  .astat.red-text .av { color: var(--red); }
+  .green-text { color: var(--green); }
+  .yellow-text { color: var(--yellow); }
+  .red-text { color: var(--red); }
+  .audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .audit-panel { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .audit-panel h3 { font-size: 12px; font-weight: 600; margin-bottom: 10px; letter-spacing: 0.02em; }
+  .audit-list { list-style: none; padding: 0; font-size: 11px; line-height: 1.6; }
+  .audit-list li { padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .audit-list li:last-child { border-bottom: none; }
+  .audit-callout { margin-top: 18px; padding: 14px 16px; background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(251,146,60,0.04)); border: 1px solid #4a3416; border-radius: 8px; font-size: 12px; line-height: 1.6; color: var(--text); }
+  .callout-key { color: var(--yellow); font-weight: 700; font-family: 'SF Mono', monospace; letter-spacing: 0.05em; font-size: 11px; margin-right: 8px; }
+
+  /* Gap Matrix */
+  .gap-section { margin-top: 8px; }
+  .gap-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+  .gap-tag { font-size: 9.5px; font-weight: 700; color: var(--green); background: var(--green-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .gap-title { font-size: 15px; font-weight: 600; }
+  .gap-matrix { width: 100%; border-collapse: collapse; font-size: 11.5px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .gap-matrix thead th { background: var(--panel-2); color: var(--muted); font-weight: 600; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  .gap-matrix tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .gap-matrix tbody tr:last-child td { border-bottom: none; }
+  .gap-matrix .dim-cell { color: var(--text); font-weight: 600; width: 16%; }
+  .gap-matrix td.bad { color: var(--red); font-weight: 500; }
+  .gap-matrix td.warn { color: var(--yellow); font-weight: 500; }
+  .gap-matrix tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  /* Verdict */
+  .verdict { margin-top: 18px; padding: 16px 18px; background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 6px; }
+  .verdict-tag { font-size: 9.5px; font-weight: 700; color: var(--green); letter-spacing: 0.1em; font-family: 'SF Mono', monospace; margin-bottom: 8px; display: inline-block; }
+  .verdict p { font-size: 12.5px; line-height: 1.6; margin: 8px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>EMAIL ARCHITECTURE <span class="accent">/</span> UGC World</h1>
+  <div class="meta">
+    one-time build <span class="sep">·</span> Gloria voice <span class="sep">·</span> GHL infra <span class="sep">·</span> engaged-only sends <span class="sep">·</span> v1.0 / 2026-05-30
+  </div>
+</header>
+
+<!-- KEYSTONE BAR -->
+<div class="keystone">
+  <div class="stat green">
+    <div class="label">Keystone Metric</div>
+    <div class="value">RPSM</div>
+    <div class="sub">revenue per subscriber per month</div>
+  </div>
+  <div class="stat blue">
+    <div class="label">One-Time Emails</div>
+    <div class="value">30</div>
+    <div class="sub">Skool 7 + Webinar 14 + Re-engage 4 + Monthly 3 + Admin 2</div>
+  </div>
+  <div class="stat yellow">
+    <div class="label">Weekly Broadcasts</div>
+    <div class="value">6</div>
+    <div class="sub">Mon–Sat, Sun rest</div>
+  </div>
+  <div class="stat purple">
+    <div class="label">Send Segment</div>
+    <div class="value">engaged-30d</div>
+    <div class="sub">only — Ericson rule</div>
+  </div>
+  <div class="stat orange">
+    <div class="label">Build Time</div>
+    <div class="value">14d</div>
+    <div class="sub">then runs forever</div>
+  </div>
+</div>
+
+<!-- SECTION 1: SOP DEEP DIVE -->
+<section>
+  <h2><span class="num">01</span> Email SOPs — Fazio / Morgan / Ericson vs Your GHL Reality <span class="rule"></span></h2>
+
+  <!-- 1A: The 3 SOPs side by side -->
+  <div class="sop-grid">
+    <div class="sop-card fazio">
+      <div class="sop-head">
+        <div class="sop-name">DANIEL FAZIO</div>
+        <div class="sop-bizline">Client Ascension / Black Tier — daily-mailer offer machine</div>
+      </div>
+      <table class="sop-table">
+        <tr><td class="dim">RHYTHM</td><td>1x/day, 6–7x/week, often 2x on launch days</td></tr>
+        <tr><td class="dim">FORMAT</td><td>Plain text, 200–400 words, single column, no images</td></tr>
+        <tr><td class="dim">SUBJECT</td><td>3–5 words, lowercase, pattern interrupt ("this killed me", "stop selling")</td></tr>
+        <tr><td class="dim">STRUCTURE</td><td>Open loop → personal story → mechanism reveal → CTA in P.S.</td></tr>
+        <tr><td class="dim">EVERY EMAIL</td><td>Sells. No "pure value" emails. Either direct pitch or community/free-class CTA.</td></tr>
+        <tr><td class="dim">MECHANISM</td><td>Free Skool/Discord → daily newsletter → high-ticket offer (Black Tier $X0K)</td></tr>
+        <tr><td class="dim">SEGMENTATION</td><td>Light. Source + customer/non + engaged tier. Mails whole active list.</td></tr>
+        <tr><td class="dim">DELIVERABILITY</td><td>60d no-open → auto-remove. Plain text only. Subdomain isolation.</td></tr>
+        <tr><td class="dim">TOOLS</td><td>Beehiiv / GHL-style ESP, simple tag taxonomy, manual broadcasts daily</td></tr>
+      </table>
+    </div>
+
+    <div class="sop-card morgan">
+      <div class="sop-head">
+        <div class="sop-name">CHARLIE MORGAN</div>
+        <div class="sop-bizline">Imperium / Sovereign — worldview essayist building authority</div>
+      </div>
+      <table class="sop-table">
+        <tr><td class="dim">RHYTHM</td><td>2–3x/week, ritual Sunday essay + 1–2 supporting</td></tr>
+        <tr><td class="dim">FORMAT</td><td>Long-form 800–1500 words, essay structure, clean typography</td></tr>
+        <tr><td class="dim">SUBJECT</td><td>Declarative + contrarian ("Why coaching is dead", "The truth about Y")</td></tr>
+        <tr><td class="dim">STRUCTURE</td><td>Bold claim → worldview unpack → tactical proof → community CTA</td></tr>
+        <tr><td class="dim">EVERY EMAIL</td><td>Sells via belief shift. Pitch is Sovereign community / Imperium application.</td></tr>
+        <tr><td class="dim">MECHANISM</td><td>Twitter excerpt → newsletter → Sovereign Slack → Imperium application</td></tr>
+        <tr><td class="dim">SEGMENTATION</td><td>Free vs paid subscribers. Paid get deeper essays + invites.</td></tr>
+        <tr><td class="dim">DELIVERABILITY</td><td>Reply farming critical — every essay ends with "hit reply with X". Lower volume = strong inbox.</td></tr>
+        <tr><td class="dim">TOOLS</td><td>Beehiiv (essay format), Twitter as top-funnel, Slack as middle</td></tr>
+      </table>
+    </div>
+
+    <div class="sop-card ericson">
+      <div class="sop-head">
+        <div class="sop-name">TROY ERICSON</div>
+        <div class="sop-bizline">List Kit / Email Paramedic — deliverability OS</div>
+      </div>
+      <table class="sop-table">
+        <tr><td class="dim">RHYTHM</td><td>4–5x/week. "Send less to send more." Quality &gt; cadence.</td></tr>
+        <tr><td class="dim">FORMAT</td><td>Plain text, 150–300 words, 1 link MAX, no images, no HTML</td></tr>
+        <tr><td class="dim">SUBJECT</td><td>Question-based, conversational ("did you see this?", "quick question")</td></tr>
+        <tr><td class="dim">STRUCTURE</td><td>Question hook → context → tactical insight → soft CTA</td></tr>
+        <tr><td class="dim">EVERY EMAIL</td><td>Engineered to get a reply. Reply = Gmail trust signal = inbox placement.</td></tr>
+        <tr><td class="dim">MECHANISM</td><td>Newsletter → DFY deliverability audit / List Kit service</td></tr>
+        <tr><td class="dim">SEGMENTATION</td><td>HEAVY: engaged-30d / warm-60d / cold-90d / sunset-180d. Mails engaged ONLY.</td></tr>
+        <tr><td class="dim">DELIVERABILITY</td><td>SPF/DKIM/DMARC, subdomain warmup, 10-inbox seed list, monthly placement test</td></tr>
+        <tr><td class="dim">TOOLS</td><td>Klaviyo / ActiveCampaign / Customer.io, GlockApps + Mailgenius for monitoring</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 1B: Your GHL Reality -->
+  <div class="ghl-audit">
+    <div class="audit-head">
+      <span class="audit-tag">YOUR GHL · LIVE PULL · 2026-05-30</span>
+      <div class="audit-title">What's actually in your GHL right now</div>
+    </div>
+
+    <div class="audit-stats">
+      <div class="astat"><div class="av">127</div><div class="al">total workflows</div></div>
+      <div class="astat green-text"><div class="av">70</div><div class="al">published</div></div>
+      <div class="astat yellow-text"><div class="av">57</div><div class="al">draft (built, never shipped)</div></div>
+      <div class="astat red-text"><div class="av">0</div><div class="al">broadcast emails ever sent</div></div>
+      <div class="astat"><div class="av">4</div><div class="al">email templates total</div></div>
+      <div class="astat red-text"><div class="av">0</div><div class="al">engagement segmentation</div></div>
+    </div>
+
+    <div class="audit-grid">
+      <div class="audit-panel">
+        <h3 class="green-text">✓ Good bones already wired</h3>
+        <ul class="audit-list">
+          <li>14-Email post-BAC showup sequence (published)</li>
+          <li>POST BAC EMAILS pre-call 4x/day cadence</li>
+          <li>Booked Starter Call → 7-day sequence</li>
+          <li>Webinar EMAIL + SMS automation</li>
+          <li>Skool lead nurturing (updated 3.12)</li>
+          <li>UGCA LT Non-Buyers email sequences</li>
+          <li>Appointment Reactivation nurturing sequence</li>
+          <li>Reactivation flow for 2,000 dormant leads</li>
+          <li>Appointment No-Show → Reactivate</li>
+        </ul>
+      </div>
+
+      <div class="audit-panel">
+        <h3 class="red-text">✗ Missing entirely</h3>
+        <ul class="audit-list">
+          <li>Daily broadcast cadence (Fazio rhythm)</li>
+          <li>Weekly essay (Morgan format)</li>
+          <li>Engagement-based segments (engaged-30d / cold-90d / sunset)</li>
+          <li>Sunset / auto-remove policy</li>
+          <li>Reply farming in any flow</li>
+          <li>Source / stage / engagement / flow tag taxonomy</li>
+          <li>Monthly power offer to engaged segment</li>
+          <li>Seed list + inbox placement testing</li>
+          <li>Compounding loop (emails → ads → ICP)</li>
+        </ul>
+      </div>
+
+      <div class="audit-panel">
+        <h3 class="yellow-text">⚠ Tag chaos (real tags pulled)</h3>
+        <ul class="audit-list">
+          <li><span class="mono">$17</span> · <span class="mono">add</span> · <span class="mono">android</span></li>
+          <li><span class="mono">alex g opt-in</span> · <span class="mono">applicant</span> · <span class="mono">application</span></li>
+          <li><span class="mono">auto-qualified</span> + <span class="mono">auto-qualified application</span> (dupe)</li>
+          <li><span class="mono">booked a call</span> + <span class="mono">booked a b2b call</span> + <span class="mono">booked build day call</span></li>
+          <li><span class="mono">appointment-no-show</span> (only state-like tag)</li>
+          <li>~5 "New Workflow : 17779…" unnamed flows in published</li>
+          <li>~10 month-named flows ("April 13 - April 16", "May 27, 2026")</li>
+          <li><strong>No source/stage/engagement/flow dimensions. Flat pile.</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="audit-callout">
+      <span class="callout-key">THE BIG REVEAL:</span> you have most of the recoup flows built. You're not missing infrastructure — you're missing the <strong>spine</strong> (tag taxonomy), the <strong>rhythm</strong> (zero broadcasts), and the <strong>hygiene</strong> (no sunset). The 127-workflow sprawl is mostly duplicates + abandoned drafts. <strong>Don't build more — consolidate + add the 3 missing layers.</strong>
+    </div>
+  </div>
+
+  <!-- 1C: Gap Matrix -->
+  <div class="gap-section">
+    <div class="gap-head">
+      <span class="gap-tag">GAP MATRIX</span>
+      <div class="gap-title">What each rep does · what you do · what to copy</div>
+    </div>
+    <table class="gap-matrix">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Fazio</th>
+          <th>Morgan</th>
+          <th>Ericson</th>
+          <th>You today</th>
+          <th>Copy from</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="dim-cell">Broadcast rhythm</td>
+          <td>7x/week daily</td>
+          <td>2–3x/week essays</td>
+          <td>4–5x/week</td>
+          <td class="bad">0x — none ever</td>
+          <td><strong>Fazio</strong> (6x Mon–Sat)</td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Email length / format</td>
+          <td>200–400 words plain</td>
+          <td>800–1500 essay</td>
+          <td>150–300 plain</td>
+          <td class="warn">HTML templates only</td>
+          <td><strong>Ericson</strong> plain text baseline</td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Subject style</td>
+          <td>lowercase pattern interrupt</td>
+          <td>declarative contrarian</td>
+          <td>conversational question</td>
+          <td class="warn">unknown / inconsistent</td>
+          <td><strong>Mix</strong> by day-type</td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Every email sells</td>
+          <td>✓ always CTA</td>
+          <td>✓ belief→community</td>
+          <td>✓ soft CTA</td>
+          <td class="warn">flows yes, broadcasts N/A</td>
+          <td><strong>Fazio</strong> CTA-in-PS rule</td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Segmentation</td>
+          <td>light (source + tier)</td>
+          <td>free / paid tiers</td>
+          <td>engaged / cold / sunset</td>
+          <td class="bad">none — flat 127-flow tag pile</td>
+          <td><strong>Ericson</strong> engagement-based</td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Deliverability</td>
+          <td>60d auto-remove</td>
+          <td>low volume protect</td>
+          <td>seed list + monthly test</td>
+          <td class="bad">no sunset, no monitoring</td>
+          <td><strong>Ericson</strong> full stack</td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Reply farming</td>
+          <td>some P.S. asks</td>
+          <td>✓ end-of-essay ask</td>
+          <td>✓ every email engineered</td>
+          <td class="bad">none</td>
+          <td><strong>Ericson</strong> every send</td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Tag taxonomy</td>
+          <td>source + tier</td>
+          <td>free / paid</td>
+          <td>engagement state machine</td>
+          <td class="bad">"$17", "add", "android" chaos</td>
+          <td><strong>spec in §02 below</strong></td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Compounding loop</td>
+          <td>community → newsletter</td>
+          <td>Twitter → newsletter → Slack</td>
+          <td>data → SOP iteration</td>
+          <td class="bad">silo'd from ads + ICP</td>
+          <td><strong>spec in §05 below</strong></td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Monthly power offer</td>
+          <td>weekly mini-launches</td>
+          <td>quarterly Imperium opens</td>
+          <td>occasional sprint</td>
+          <td class="bad">none</td>
+          <td><strong>Morgan</strong> rhythm, Fazio scarcity</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="verdict">
+    <span class="verdict-tag">VERDICT</span>
+    <p>You have <strong style="color:var(--green)">good trigger infrastructure</strong> (recoup flows are wired). You're missing the <strong style="color:var(--yellow)">rhythm layer</strong> (Fazio: daily Mon–Sat broadcasts) and the <strong style="color:var(--red)">deliverability layer</strong> (Ericson: engagement segments + sunset). Optionally add the <strong style="color:var(--purple)">depth layer</strong> (Morgan: Sunday essay) once the basics run.</p>
+    <p>Sequence: <strong>1.</strong> consolidate the 57 draft + 5 unnamed flows · <strong>2.</strong> deploy the tag spine over the chaos · <strong>3.</strong> ship the daily broadcast Mon–Sat · <strong>4.</strong> bolt on sunset / engagement segments · <strong>5.</strong> add Sunday essay last.</p>
+  </div>
+</section>
+
+<!-- SECTION 2: TAG SPINE -->
+<section>
+  <h2><span class="num">02</span> GHL Tag Spine — every contact carries 4 dimensions <span class="rule"></span></h2>
+  <div class="spine">
+    <div class="spine-col">
+      <h3>Source</h3>
+      <div class="rule">set once at intake, never changes</div>
+      <div class="chips">
+        <span class="chip blue">src-webinar-reg</span>
+        <span class="chip blue">src-skool-join</span>
+        <span class="chip blue">src-vsl-optin</span>
+        <span class="chip blue">src-organic-form</span>
+        <span class="chip blue">src-paid-meta</span>
+        <span class="chip blue">src-referral</span>
+      </div>
+    </div>
+    <div class="spine-col">
+      <h3>Stage</h3>
+      <div class="rule">mutually exclusive — old removed when new added</div>
+      <div class="chips">
+        <span class="chip yellow">stage-new</span>
+        <span class="chip yellow">stage-webinar-attended</span>
+        <span class="chip yellow">stage-webinar-noshow</span>
+        <span class="chip yellow">stage-replay-watched</span>
+        <span class="chip yellow">stage-replay-noshow</span>
+        <span class="chip yellow">stage-skool-active</span>
+        <span class="chip yellow">stage-skool-dropped</span>
+        <span class="chip yellow">stage-app-started</span>
+        <span class="chip yellow">stage-app-completed</span>
+        <span class="chip yellow">stage-call-booked</span>
+        <span class="chip yellow">stage-call-showed</span>
+        <span class="chip yellow">stage-call-noshow</span>
+        <span class="chip green">stage-customer</span>
+        <span class="chip red">stage-cold</span>
+      </div>
+    </div>
+    <div class="spine-col">
+      <h3>Engagement</h3>
+      <div class="rule">auto-updated by GHL on open/click/reply</div>
+      <div class="chips">
+        <span class="chip green">engaged-30d</span>
+        <span class="chip green">engaged-90d</span>
+        <span class="chip red">cold-90d</span>
+        <span class="chip red">cold-180d</span>
+      </div>
+    </div>
+    <div class="spine-col">
+      <h3>Flow (one at a time)</h3>
+      <div class="rule">which automation they're currently in</div>
+      <div class="chips">
+        <span class="chip purple">flow-webinar-showup</span>
+        <span class="chip purple">flow-webinar-recoup</span>
+        <span class="chip purple">flow-skool-fasttrack</span>
+        <span class="chip purple">flow-evergreen</span>
+        <span class="chip purple">flow-reengage</span>
+        <span class="chip purple">flow-monthly-promo</span>
+        <span class="chip purple">flow-sunset</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: FLOWS -->
+<section>
+  <h2><span class="num">03</span> The 5 Flows — state machines, set once <span class="rule"></span></h2>
+  <div class="flows">
+
+    <!-- FLOW A: WEBINAR -->
+    <div class="flow">
+      <div class="flow-head">
+        <span class="flow-tag">FLOW A</span>
+        <div class="flow-title">Webinar Journey</div>
+        <div class="flow-sub">19 emails — handles register → live → recoup → evergreen</div>
+      </div>
+      <div class="diagram">
+        <div class="row">
+          <span class="node event">webinar registration</span>
+          <span class="arr">→</span>
+          <span class="node entry">tag: src-webinar-reg + stage-new + flow-webinar-showup</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="seq">
+          <span class="seq-label">SHOWUP SEQUENCE</span>
+          <span class="node email">E1 confirmation (immediate)</span>
+          <span class="node email">E2 hype +24h</span>
+          <span class="node email">E3 reminder +12h</span>
+          <span class="node email">E4 going live +1h</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="row"><span class="node event">webinar happens</span></div>
+
+        <div class="branch">
+          <span class="branch-label">IF<br>attended</span>
+          <div class="branch-body">
+            <span class="node action">tag: stage-webinar-attended + flow-webinar-recoup</span>
+            <span class="arr">→</span>
+            <div class="seq" style="flex:1">
+              <span class="seq-label">POST-WEBINAR CTA</span>
+              <span class="node email">E1 recap+CTA</span>
+              <span class="node email">E2 FAQ</span>
+              <span class="node email">E3 proof</span>
+              <span class="node email">E4 scarcity</span>
+              <span class="node email">E5 last call</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="branch">
+          <span class="branch-label">IF<br>no-show</span>
+          <div class="branch-body">
+            <span class="node action">tag: stage-webinar-noshow + flow-webinar-recoup</span>
+            <span class="arr">→</span>
+            <div class="seq" style="flex:1">
+              <span class="seq-label">REPLAY PUSH</span>
+              <span class="node email">E1 you missed it</span>
+              <span class="node email">E2 highlights</span>
+              <span class="node email">E3 proof</span>
+              <span class="node email">E4 scarcity</span>
+              <span class="node email">E5 replay expires</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arr-down">↓</div>
+        <div class="row"><span class="node event">end of recoup sequence (day 5)</span></div>
+
+        <div class="branch">
+          <span class="branch-label">IF<br>books call</span>
+          <div class="branch-body">
+            <span class="node success">stage-call-booked</span>
+            <span class="arr">→</span>
+            <span class="node exit">exit all → call-confirm flow</span>
+          </div>
+        </div>
+        <div class="branch">
+          <span class="branch-label">IF<br>no book</span>
+          <div class="branch-body">
+            <span class="node fail">stage-replay-noshow</span>
+            <span class="arr">→</span>
+            <span class="node exit">flow-evergreen</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOW B: SKOOL -->
+    <div class="flow">
+      <div class="flow-head">
+        <span class="flow-tag">FLOW B</span>
+        <div class="flow-title">Skool 7-Day Fast-Track</div>
+        <div class="flow-sub">7 emails — handles join → 7-day push → evergreen</div>
+      </div>
+      <div class="diagram">
+        <div class="row">
+          <span class="node event">Skool join (webhook → GHL)</span>
+          <span class="arr">→</span>
+          <span class="node entry">tag: src-skool-join + stage-new + flow-skool-fasttrack</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="seq">
+          <span class="seq-label">7-DAY FAST-TRACK (1/day)</span>
+          <span class="node email">D1 welcome</span>
+          <span class="node email">D2 win story</span>
+          <span class="node email">D3 mechanism</span>
+          <span class="node email">D4 objection</span>
+          <span class="node email">D5 proof stack</span>
+          <span class="node email">D6 scarcity</span>
+          <span class="node email">D7 last call</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="row"><span class="node event">day 7 completes</span></div>
+
+        <div class="branch">
+          <span class="branch-label">IF<br>books</span>
+          <div class="branch-body">
+            <span class="node success">stage-call-booked</span>
+            <span class="arr">→</span>
+            <span class="node exit">exit → call-confirm</span>
+          </div>
+        </div>
+        <div class="branch">
+          <span class="branch-label">IF<br>Skool active, no book</span>
+          <div class="branch-body">
+            <span class="node action">stage-skool-active</span>
+            <span class="arr">→</span>
+            <span class="node exit">flow-evergreen</span>
+          </div>
+        </div>
+        <div class="branch">
+          <span class="branch-label">IF<br>Skool dropped</span>
+          <div class="branch-body">
+            <span class="node fail">stage-skool-dropped</span>
+            <span class="arr">→</span>
+            <span class="node exit">flow-evergreen</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOW C: EVERGREEN -->
+    <div class="flow">
+      <div class="flow-head">
+        <span class="flow-tag">FLOW C</span>
+        <div class="flow-title">Evergreen Broadcast — the long game</div>
+        <div class="flow-sub">6 sends/week + engagement monitor + monthly promo trigger</div>
+      </div>
+      <div class="diagram">
+        <div class="row">
+          <span class="node entry">contact tagged flow-evergreen</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="row">
+          <span class="node email">Daily broadcast (Mon–Sat) → engaged-30d ONLY</span>
+        </div>
+        <div class="row">
+          <span class="node email">Monthly power offer (last Thu–Sat) → engaged-30d ONLY</span>
+        </div>
+        <div class="row">
+          <span class="node action">Engagement auto-tagged: open/click/reply within 30d → engaged-30d</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="branch">
+          <span class="branch-label">IF<br>no engage 90d</span>
+          <div class="branch-body">
+            <span class="node fail">tag cold-90d, remove flow-evergreen</span>
+            <span class="arr">→</span>
+            <span class="node exit">flow-reengage (Flow D)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOW D: RE-ENGAGE / SUNSET -->
+    <div class="flow">
+      <div class="flow-head">
+        <span class="flow-tag">FLOW D</span>
+        <div class="flow-title">Re-engage → Sunset — list hygiene</div>
+        <div class="flow-sub">4 emails over 14 days — Ericson playbook</div>
+      </div>
+      <div class="diagram">
+        <div class="row">
+          <span class="node entry">tagged cold-90d (no open/click 90d)</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="seq">
+          <span class="seq-label">RE-ENGAGE / 14 DAYS</span>
+          <span class="node email">D1 "still want these? click yes"</span>
+          <span class="node email">D5 story + click CTA</span>
+          <span class="node email">D10 "am I still useful?"</span>
+          <span class="node email">D14 "removing you tomorrow"</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="branch">
+          <span class="branch-label">IF<br>any click</span>
+          <div class="branch-body">
+            <span class="node success">retag engaged-30d</span>
+            <span class="arr">→</span>
+            <span class="node exit">back to flow-evergreen</span>
+          </div>
+        </div>
+        <div class="branch">
+          <span class="branch-label">IF<br>zero clicks</span>
+          <div class="branch-body">
+            <span class="node fail">tag sunset + flow-sunset</span>
+            <span class="arr">→</span>
+            <span class="node exit">suppress all sends · keep for Meta LAL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOW E: MONTHLY POWER OFFER -->
+    <div class="flow">
+      <div class="flow-head">
+        <span class="flow-tag">FLOW E</span>
+        <div class="flow-title">Monthly Power Offer — hard sell window</div>
+        <div class="flow-sub">3 emails, last Thu–Sat each month, engaged-30d only</div>
+      </div>
+      <div class="diagram">
+        <div class="row">
+          <span class="node event">cron: last Thursday 9am CT</span>
+          <span class="arr">→</span>
+          <span class="node entry">segment: flow-evergreen + engaged-30d</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="seq">
+          <span class="seq-label">3-DAY POWER OFFER</span>
+          <span class="node email">THU big news, this Sunday only (open loop)</span>
+          <span class="node email">FRI mechanism + proof + offer + CTA</span>
+          <span class="node email">SAT scarcity + close + last call</span>
+        </div>
+        <div class="arr-down">↓</div>
+        <div class="row">
+          <span class="node event">SUN doors close</span>
+          <span class="arr">→</span>
+          <span class="node exit">return to standard evergreen rhythm</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 4: WEEKLY CADENCE -->
+<section>
+  <h2><span class="num">04</span> Weekly Broadcast Cadence — Gloria voice, plain text, 1 link max <span class="rule"></span></h2>
+  <div class="cadence">
+    <div class="day story">
+      <div class="name">Mon</div>
+      <div class="type">Story</div>
+      <div class="desc">narrative + soft CTA in P.S.</div>
+    </div>
+    <div class="day pov">
+      <div class="name">Tue</div>
+      <div class="type">POV</div>
+      <div class="desc">contrarian take, Fazio-style</div>
+    </div>
+    <div class="day proof">
+      <div class="name">Wed</div>
+      <div class="type">Proof</div>
+      <div class="desc">customer win + CTA</div>
+    </div>
+    <div class="day teach">
+      <div class="name">Thu</div>
+      <div class="type">Teach</div>
+      <div class="desc">one mechanism, one idea</div>
+    </div>
+    <div class="day qa">
+      <div class="name">Fri</div>
+      <div class="type">Q&amp;A</div>
+      <div class="desc">reply spotlight / community thread</div>
+    </div>
+    <div class="day reflect">
+      <div class="name">Sat</div>
+      <div class="type">Reflect</div>
+      <div class="desc">weekend story + soft CTA</div>
+    </div>
+    <div class="day rest">
+      <div class="name">Sun</div>
+      <div class="type">REST</div>
+      <div class="desc">ESP cooldown (or Morgan essay if 7x)</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: DELIVERABILITY + COMPOUNDING -->
+<section>
+  <h2><span class="num">05</span> Deliverability Stack + Compounding Loop <span class="rule"></span></h2>
+  <div class="two-col">
+    <div class="panel">
+      <h3>Deliverability Stack <span class="badge">ERICSON</span></h3>
+      <ul class="stack">
+        <li><span class="n">1</span><span class="lbl">Engaged-30d sends only</span><span class="why">biggest single lever</span></li>
+        <li><span class="n">2</span><span class="lbl">Plain text + 1 link max</span><span class="why">kill HTML bloat</span></li>
+        <li><span class="n">3</span><span class="lbl">Reply farming every send</span><span class="why">Gmail trust signal</span></li>
+        <li><span class="n">4</span><span class="lbl">Sunset at 180d cold</span><span class="why">auto, no manual review</span></li>
+        <li><span class="n">5</span><span class="lbl">Seed list (10 inboxes)</span><span class="why">monthly Mailgenius test</span></li>
+        <li><span class="n">6</span><span class="lbl">SPF / DKIM / DMARC verified</span><span class="why">on email.ugc-world.com</span></li>
+        <li><span class="n">7</span><span class="lbl">Mon–Sat send pattern</span><span class="why">Sun ESP rest</span></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Compounding Loop <span class="badge">CONNECT</span></h3>
+      <div class="loop">
+        <div class="loop-step">
+          <span class="from">top broadcasts (&gt;5% click)</span>
+          <span class="a">→</span>
+          <span class="to">swiped into Meta ad copy</span>
+        </div>
+        <div class="loop-step">
+          <span class="from">reply themes</span>
+          <span class="a">→</span>
+          <span class="to">Messaging Cockpit (ICP intel)</span>
+        </div>
+        <div class="loop-step">
+          <span class="from">state movements</span>
+          <span class="a">→</span>
+          <span class="to">setter prep brief (per call)</span>
+        </div>
+        <div class="loop-step">
+          <span class="from">sunset list</span>
+          <span class="a">→</span>
+          <span class="to">Meta LAL audience seed</span>
+        </div>
+        <div class="loop-step">
+          <span class="from">monthly promo data</span>
+          <span class="a">→</span>
+          <span class="to">offer architecture (what beliefs sell)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: BUILD ORDER -->
+<section>
+  <h2><span class="num">06</span> 14-Day Build Order — then it runs forever <span class="rule"></span></h2>
+  <div class="timeline">
+    <div class="tl-day wire"><div class="d">D1</div><div class="t">tag taxonomy in GHL</div></div>
+    <div class="tl-day wire"><div class="d">D2</div><div class="t">+ flow scaffolds</div></div>
+    <div class="tl-day copy"><div class="d">D3</div><div class="t">write Skool 7</div></div>
+    <div class="tl-day copy"><div class="d">D4</div><div class="t">write webinar 14</div></div>
+    <div class="tl-day copy"><div class="d">D5</div><div class="t">finish webinar</div></div>
+    <div class="tl-day wire"><div class="d">D6</div><div class="t">wire Flow A + B</div></div>
+    <div class="tl-day copy"><div class="d">D7</div><div class="t">write re-engage 4</div></div>
+    <div class="tl-day wire"><div class="d">D8</div><div class="t">wire Flow D</div></div>
+    <div class="tl-day wire"><div class="d">D9</div><div class="t">engagement auto-tags</div></div>
+    <div class="tl-day live"><div class="d">D10</div><div class="t">first evergreen send</div></div>
+    <div class="tl-day copy"><div class="d">D11</div><div class="t">monthly promo template</div></div>
+    <div class="tl-day wire"><div class="d">D12</div><div class="t">wire Flow E + cron</div></div>
+    <div class="tl-day live"><div class="d">D13</div><div class="t">seed list + placement test</div></div>
+    <div class="tl-day doc"><div class="d">D14</div><div class="t">document in vault</div></div>
+  </div>
+  <div style="display:flex;gap:16px;margin-top:12px;font-size:11px;color:var(--muted);">
+    <span><span style="display:inline-block;width:10px;height:10px;background:#1a2010;border:1px solid #2d3a1a;border-radius:2px;vertical-align:middle;margin-right:4px"></span>copy</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#15263d;border:1px solid #1a2e4d;border-radius:2px;vertical-align:middle;margin-right:4px"></span>wire in GHL</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#0f2a1c;border:1px solid #1d4030;border-radius:2px;vertical-align:middle;margin-right:4px"></span>live</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#211433;border:1px solid #321f4d;border-radius:2px;vertical-align:middle;margin-right:4px"></span>document</span>
+  </div>
+</section>
+
+<!-- FOOTER NOTE -->
+<div class="note">
+  <span class="key">RULE:</span> a contact is always in exactly ONE flow tag. State changes swap flows.
+  <span class="key">BOTTLENECK:</span> lead→book at 6.5% — Flow A &amp; B recoup catch the 93.5% who drop, push them to evergreen instead of dying.
+  <span class="key">KEYSTONE:</span> RPSM (revenue per subscriber per month). Open rate is dead (Apple MPP). Track click + reply + revenue, not opens.
+</div>
+
+</body>
+</html>
