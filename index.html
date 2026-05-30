@@ -401,6 +401,87 @@
   .ericson-verdict { padding: 18px 22px; background: linear-gradient(135deg, rgba(248,113,113,0.06), rgba(251,191,36,0.04)); border: 1px solid #4a3416; border-left: 3px solid var(--red); border-radius: 8px; }
   .ericson-verdict p { font-size: 12.5px; line-height: 1.7; margin: 6px 0; }
   .ericson-verdict p:first-of-type { margin-top: 10px; }
+
+  /* Tech stack */
+  .ts-section { margin-bottom: 28px; }
+  .ts-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .ts-tag { font-size: 9.5px; font-weight: 700; color: var(--blue); background: var(--blue-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .ts-tag.stack { color: var(--purple); background: var(--purple-bg); }
+  .ts-tag.integ { color: var(--orange); background: var(--orange-bg); }
+  .ts-tag.walk { color: var(--green); background: var(--green-bg); }
+  .ts-tag.build { color: var(--yellow); background: var(--yellow-bg); }
+  .ts-title { font-size: 14px; font-weight: 600; }
+
+  /* Lifecycle flow */
+  .lifecycle { display: flex; flex-wrap: nowrap; align-items: stretch; gap: 4px; overflow-x: auto; padding: 4px 0; }
+  .lc-phase { flex: 1; min-width: 130px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .lc-phase.loop { background: linear-gradient(135deg, rgba(192,132,252,0.06), transparent); border-color: #321f4d; }
+  .lc-num { font-size: 11px; font-weight: 700; color: var(--blue); font-family: 'SF Mono', monospace; }
+  .lc-phase.loop .lc-num { color: var(--purple); }
+  .lc-title { font-size: 11.5px; font-weight: 700; color: var(--text); letter-spacing: 0.04em; }
+  .lc-tools { font-size: 10px; color: var(--muted); font-family: 'SF Mono', monospace; line-height: 1.4; }
+  .lc-action { font-size: 10.5px; color: var(--text); line-height: 1.45; margin-top: auto; }
+  .lc-arrow { display: flex; align-items: center; color: var(--dim); font-size: 16px; padding: 0 2px; }
+
+  /* Stack table */
+  .stack-table { width: 100%; border-collapse: collapse; font-size: 11.5px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .stack-table thead th { background: var(--panel-2); color: var(--muted); font-weight: 600; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  .stack-table tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .stack-table tbody tr:last-child td { border-bottom: none; }
+  .stack-table .layer-name { color: var(--text); font-weight: 600; font-family: 'SF Mono', monospace; font-size: 10.5px; letter-spacing: 0.02em; white-space: nowrap; }
+  .stack-table td.ok { color: var(--green); font-weight: 500; white-space: nowrap; }
+  .stack-table td.warn { color: var(--yellow); font-weight: 500; white-space: nowrap; }
+  .stack-table td.bad { color: var(--red); font-weight: 500; white-space: nowrap; }
+
+  /* Integration map */
+  .integ-grid { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: start; }
+  .center-node { background: linear-gradient(135deg, rgba(96,165,250,0.1), rgba(96,165,250,0.04)); border: 2px solid var(--blue); border-radius: 12px; padding: 24px 20px; text-align: center; position: sticky; top: 20px; }
+  .node-name { font-size: 22px; font-weight: 700; color: var(--blue); letter-spacing: -0.02em; }
+  .node-sub { font-size: 10.5px; color: var(--muted); margin-top: 6px; font-family: 'SF Mono', monospace; line-height: 1.5; }
+  .integ-list { display: flex; flex-direction: column; gap: 6px; }
+  .integ-row { display: grid; grid-template-columns: 120px 140px 100px 1fr; gap: 12px; align-items: center; padding: 8px 14px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; font-size: 11px; }
+  .integ-row.missing { background: linear-gradient(135deg, rgba(248,113,113,0.04), transparent); border-color: #4a1f1f; }
+  .from-tool { font-weight: 600; color: var(--text); font-family: 'SF Mono', monospace; font-size: 10.5px; }
+  .to-tool { font-weight: 600; color: var(--blue); font-family: 'SF Mono', monospace; font-size: 10.5px; }
+  .integ-row.missing .to-tool { color: var(--red); }
+  .arrow { color: var(--muted); font-family: 'SF Mono', monospace; font-size: 10px; }
+  .desc { color: var(--muted); font-size: 10.5px; line-height: 1.45; }
+  .integ-row.missing .desc { color: var(--red); }
+
+  /* Walkthrough */
+  .walkthrough { display: flex; flex-direction: column; gap: 6px; }
+  .wk-step { display: grid; grid-template-columns: 180px 1fr; gap: 14px; padding: 10px 14px; background: var(--panel-2); border-left: 2px solid var(--border); font-size: 11px; }
+  .wk-step.branch { background: linear-gradient(90deg, rgba(251,191,36,0.05), transparent); border-left-color: var(--yellow); }
+  .wk-step.success { background: linear-gradient(90deg, rgba(74,222,128,0.06), transparent); border-left-color: var(--green); }
+  .wk-day { font-family: 'SF Mono', monospace; font-size: 10.5px; color: var(--muted); font-weight: 600; letter-spacing: 0.03em; }
+  .wk-step.branch .wk-day { color: var(--yellow); }
+  .wk-step.success .wk-day { color: var(--green); }
+  .wk-action { color: var(--text); line-height: 1.55; }
+  .wk-tags { display: flex; flex-wrap: wrap; gap: 4px; grid-column: 2; margin-top: 4px; }
+  .wk-tag-on, .wk-tag-off { font-family: 'SF Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 3px; }
+  .wk-tag-on { background: var(--green-bg); color: var(--green); }
+  .wk-tag-off { background: var(--red-bg); color: var(--red); text-decoration: line-through; }
+  .wk-send { grid-column: 2; color: var(--blue); font-size: 10.5px; margin-top: 4px; font-family: 'SF Mono', monospace; line-height: 1.5; }
+
+  /* Build priority */
+  .priority-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .prio-item { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; position: relative; }
+  .prio-item.p1 { border-left: 3px solid var(--red); }
+  .prio-item.p2 { border-left: 3px solid var(--orange); }
+  .prio-item.p3 { border-left: 3px solid var(--yellow); }
+  .prio-item.p4 { border-left: 3px solid var(--green); }
+  .prio-item.p5 { border-left: 3px solid var(--blue); }
+  .prio-item.p6 { border-left: 3px solid var(--purple); }
+  .prio-rank { font-family: 'SF Mono', monospace; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+  .prio-item.p1 .prio-rank { color: var(--red); }
+  .prio-item.p2 .prio-rank { color: var(--orange); }
+  .prio-item.p3 .prio-rank { color: var(--yellow); }
+  .prio-item.p4 .prio-rank { color: var(--green); }
+  .prio-item.p5 .prio-rank { color: var(--blue); }
+  .prio-item.p6 .prio-rank { color: var(--purple); }
+  .prio-name { font-size: 13px; font-weight: 600; margin: 4px 0 8px; }
+  .prio-impact { font-size: 11px; color: var(--text); line-height: 1.5; margin-bottom: 8px; }
+  .prio-effort { font-size: 10.5px; color: var(--muted); font-family: 'SF Mono', monospace; padding-top: 8px; border-top: 1px dashed var(--border); }
 </style>
 </head>
 <body>
@@ -1665,6 +1746,364 @@ no DMs from brands? something else?
     <p>Your current Skool 7-day = 7 emails. Ericson would say <strong class="red-text">not enough.</strong> The Ericson move: every new opt-in (webinar reg, Skool join, VSL view) enters a <strong>30-email tailored welcome over 3-4 weeks.</strong></p>
     <p><strong>Phase 1 (E1-4, 2/day):</strong> case study + reply-farm Q + PROOF stack + 12-Q FAQ. <strong>Phase 2 (E5-15, daily):</strong> reuse your 10 best-ever broadcasts as the welcome series. <strong>Phase 3 (E16-30, daily):</strong> deep stories + how-to + soft asks. THEN graduate to daily broadcasts.</p>
     <p><strong>Effect:</strong> every opt-in gets a personalized 4-week pitch sequence instead of generic nurture. Stop nurturing — start <strong class="green-text">tailored selling.</strong></p>
+  </div>
+</section>
+
+<!-- SECTION 09: TECH STACK -->
+<section>
+  <h2><span class="num">09</span> Tech Stack — Full Architecture <span class="rule"></span></h2>
+
+  <!-- 9A: Lifecycle flow -->
+  <div class="ts-section">
+    <div class="ts-head">
+      <span class="ts-tag">DATA FLOW</span>
+      <div class="ts-title">Lifecycle of a single contact — left to right</div>
+    </div>
+    <div class="lifecycle">
+      <div class="lc-phase">
+        <div class="lc-num">1</div>
+        <div class="lc-title">ENTRY</div>
+        <div class="lc-tools">Zoom · Skool · Typeform · GHL Form · Meta Lead Ads · VSL</div>
+        <div class="lc-action">Contact submits form / joins community / clicks ad. Lead created.</div>
+      </div>
+      <div class="lc-arrow">→</div>
+      <div class="lc-phase">
+        <div class="lc-num">2</div>
+        <div class="lc-title">INGESTION</div>
+        <div class="lc-tools">n8n · Zapier · Skool webhook · Typeform → n8n → GHL</div>
+        <div class="lc-action">Webhook fires. Contact pushed into GHL with source metadata.</div>
+      </div>
+      <div class="lc-arrow">→</div>
+      <div class="lc-phase">
+        <div class="lc-num">3</div>
+        <div class="lc-title">TAG &amp; ROUTE</div>
+        <div class="lc-tools">GHL workflow "intake router"</div>
+        <div class="lc-action">Auto-tags: src-* · stage-new · flow-{entry}. Engagement = engaged-30d.</div>
+      </div>
+      <div class="lc-arrow">→</div>
+      <div class="lc-phase">
+        <div class="lc-num">4</div>
+        <div class="lc-title">FLOW</div>
+        <div class="lc-tools">GHL automations: A / B / C / D / E / F</div>
+        <div class="lc-action">Contact enters their assigned flow. Receives sequenced emails.</div>
+      </div>
+      <div class="lc-arrow">→</div>
+      <div class="lc-phase">
+        <div class="lc-num">5</div>
+        <div class="lc-title">SEND</div>
+        <div class="lc-tools">GHL SMTP via gloria@email.ugc-world.com</div>
+        <div class="lc-action">Plain text. 1 link. SPF/DKIM/DMARC verified. CDN: filesafe.space.</div>
+      </div>
+      <div class="lc-arrow">→</div>
+      <div class="lc-phase">
+        <div class="lc-num">6</div>
+        <div class="lc-title">TRACK</div>
+        <div class="lc-tools">GHL events · Mailgenius (placement) · Hyros (DEAD)</div>
+        <div class="lc-action">Open / click / reply tracked. Engagement tags auto-updated.</div>
+      </div>
+      <div class="lc-arrow">→</div>
+      <div class="lc-phase">
+        <div class="lc-num">7</div>
+        <div class="lc-title">CONVERT</div>
+        <div class="lc-tools">GHL Calendar · Fanbasis · Whop</div>
+        <div class="lc-action">Book call → show → close. Payment fires stage-customer.</div>
+      </div>
+      <div class="lc-arrow">→</div>
+      <div class="lc-phase loop">
+        <div class="lc-num">↻</div>
+        <div class="lc-title">LOOP</div>
+        <div class="lc-tools">GHL auto-tag · Flow D re-engage</div>
+        <div class="lc-action">No conv → evergreen broadcast. 90d cold → re-engage. 180d → sunset.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9B: Stack layers -->
+  <div class="ts-section">
+    <div class="ts-head">
+      <span class="ts-tag stack">STACK</span>
+      <div class="ts-title">Every layer · what tool sits where · what's live vs missing</div>
+    </div>
+    <table class="stack-table">
+      <thead>
+        <tr><th>Layer</th><th>Function</th><th>Tool(s) in use</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="layer-name">L1 · LEAD SOURCES</td>
+          <td>Where contacts originate</td>
+          <td>Zoom (webinar) · Skool (free community) · Typeform (application) · GHL Form (opt-ins) · Meta Lead Ads · VSL page · GHL Calendar (direct booking)</td>
+          <td class="ok">✓ Live</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L2 · INGESTION</td>
+          <td>Move contact data into CRM</td>
+          <td>n8n (Typeform → GHL) · Zapier (legacy paths) · Skool webhook · GHL native forms</td>
+          <td class="ok">✓ Live</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L3 · CRM &amp; STATE</td>
+          <td>Source of truth for contact data + tags</td>
+          <td>GHL (location 5XMdRsyF2tizCfHpRQQj) — 127 workflows · ~thousands of contacts · 50+ tags</td>
+          <td class="warn">⚠ Tag chaos — taxonomy needs build</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L4 · AUTOMATION ENGINE</td>
+          <td>Triggers + flow logic</td>
+          <td>GHL workflows · cron triggers · webhook triggers</td>
+          <td class="warn">⚠ 70 published / 57 abandoned drafts</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L5 · EMAIL SENDING</td>
+          <td>Outbound email delivery</td>
+          <td>GHL SMTP · subdomain: email.ugc-world.com · CDN: filesafe.space · location ID embedded</td>
+          <td class="ok">✓ Live</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L6 · DELIVERABILITY</td>
+          <td>Inbox placement + auth</td>
+          <td>SPF / DKIM / DMARC (assumed verified) · Mailgenius (TODO seed list) · subdomain isolation</td>
+          <td class="bad">✗ No monitoring · no sunset · no seed list</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L7 · BEHAVIORAL TRACKING</td>
+          <td>What contacts do post-send</td>
+          <td>GHL events (open/click/reply) · GHL form analytics · VSL watch tracking: NONE</td>
+          <td class="bad">✗ No VSL watch tracking — Ericson +12% trigger blocked</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L8 · OUTBOUND SYNC</td>
+          <td>Push events to other systems</td>
+          <td>GHL → n8n → Supabase (data mirror) · Discord webhooks (#call-review) · Meta CAPI (conversion events) · biz_cockpit nightly Sheet writer</td>
+          <td class="ok">✓ Live</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L9 · PAYMENT</td>
+          <td>Where money is collected</td>
+          <td>Fanbasis (primary, ~50%) · Whop (secondary, ~50%) · NOT Stripe</td>
+          <td class="ok">✓ Live</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L10 · ANALYTICS</td>
+          <td>What's working / what isn't</td>
+          <td>GHL dashboard (basic) · 2026 War Map Google Sheet (revenue aggregation) · custom EPS/EPO/EPC: NONE · paid_traffic_brief HTML</td>
+          <td class="warn">⚠ No per-broadcast revenue attribution</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L11 · CALL ROUTING</td>
+          <td>Sales call handling</td>
+          <td>GHL Calendar (with Alex / Gloria / multi-setter variants) · Zoom · Call Review Bot (#call-review)</td>
+          <td class="ok">✓ Live</td>
+        </tr>
+        <tr>
+          <td class="layer-name">L12 · POST-PURCHASE</td>
+          <td>Customer onboarding + LTV</td>
+          <td>Skool community · GHL "After Challenge Buy" / "After LT Buy" workflows · Coachvox</td>
+          <td class="warn">⚠ No 30-day anniversary → broadcast graduation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 9C: Integration map -->
+  <div class="ts-section">
+    <div class="ts-head">
+      <span class="ts-tag integ">INTEGRATIONS</span>
+      <div class="ts-title">What talks to what — wired connections today</div>
+    </div>
+    <div class="integ-grid">
+      <div class="integ-node center-node">
+        <div class="node-name">GHL</div>
+        <div class="node-sub">CRM + automations + SMTP<br>5XMdRsyF2tizCfHpRQQj</div>
+      </div>
+      <div class="integ-list">
+        <div class="integ-row">
+          <span class="from-tool">Skool</span>
+          <span class="arrow">→ webhook →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">community joins trigger nurture flow</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">Typeform</span>
+          <span class="arrow">→ n8n →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">application form creates contact + tags applicant</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">Meta Lead Ads</span>
+          <span class="arrow">→ native →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">paid leads auto-import with utm tags</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">Zoom</span>
+          <span class="arrow">→ GHL Calendar sync →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">webinar reg + call bookings synced</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">Fanbasis</span>
+          <span class="arrow">→ GHL workflow →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">purchase triggers stage-customer + buyer welcome</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">Whop</span>
+          <span class="arrow">→ API +webhook →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">memberships sync customer tags</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">GHL</span>
+          <span class="arrow">→ n8n →</span>
+          <span class="to-tool">Supabase</span>
+          <span class="desc">all contact + opportunity events mirrored for analytics</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">GHL</span>
+          <span class="arrow">→ Discord webhook →</span>
+          <span class="to-tool">#call-review</span>
+          <span class="desc">call bookings + outcomes posted to tech Discord</span>
+        </div>
+        <div class="integ-row">
+          <span class="from-tool">GHL</span>
+          <span class="arrow">→ Meta CAPI →</span>
+          <span class="to-tool">Meta Ads</span>
+          <span class="desc">conversion events posted back for ad optimization</span>
+        </div>
+        <div class="integ-row missing">
+          <span class="from-tool">VSL player</span>
+          <span class="arrow">→ ??? →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">watch % tracking MISSING — Ericson +12% trigger blocked</span>
+        </div>
+        <div class="integ-row missing">
+          <span class="from-tool">Mailgenius</span>
+          <span class="arrow">→ ??? →</span>
+          <span class="to-tool">GHL</span>
+          <span class="desc">monthly inbox placement test MISSING</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9D: State machine walkthrough -->
+  <div class="ts-section">
+    <div class="ts-head">
+      <span class="ts-tag walk">WALKTHROUGH</span>
+      <div class="ts-title">One contact's journey · 90-day timeline · every tag + every send</div>
+    </div>
+    <div class="walkthrough">
+      <div class="wk-step">
+        <div class="wk-day">Day 0 · 14:23</div>
+        <div class="wk-action">Lauren clicks Meta ad → webinar reg form on landing page → submits.</div>
+        <div class="wk-tags"><span class="wk-tag-on">+src-paid-meta</span> <span class="wk-tag-on">+src-webinar-reg</span> <span class="wk-tag-on">+stage-new</span> <span class="wk-tag-on">+flow-webinar-showup</span> <span class="wk-tag-on">+engaged-30d</span></div>
+        <div class="wk-send">SEND: A1-E1 "you're in. one thing before tuesday." (+immediate)</div>
+      </div>
+      <div class="wk-step">
+        <div class="wk-day">Day 2 · 19:00</div>
+        <div class="wk-action">24h before webinar.</div>
+        <div class="wk-send">SEND: A1-E2 "the part most girls miss before tomorrow's call"</div>
+      </div>
+      <div class="wk-step">
+        <div class="wk-day">Day 3 · 07:00</div>
+        <div class="wk-action">12h before webinar.</div>
+        <div class="wk-send">SEND: A1-E3 "tomorrow. one thing I wish someone told me at 18."</div>
+      </div>
+      <div class="wk-step">
+        <div class="wk-day">Day 3 · 18:00</div>
+        <div class="wk-action">1h before webinar.</div>
+        <div class="wk-send">SEND: A1-E4 "going live in 1 hour"</div>
+      </div>
+      <div class="wk-step branch">
+        <div class="wk-day">Day 3 · 19:00 · WEBINAR FIRES</div>
+        <div class="wk-action">Lauren attends 73 minutes of 90. Watched live.</div>
+        <div class="wk-tags"><span class="wk-tag-off">-flow-webinar-showup</span> <span class="wk-tag-on">+stage-webinar-attended</span> <span class="wk-tag-on">+flow-webinar-recoup</span></div>
+      </div>
+      <div class="wk-step">
+        <div class="wk-day">Day 3 · 21:00</div>
+        <div class="wk-send">SEND: A2-E1 "tuesday's recap + the part I didn't show on screen"</div>
+      </div>
+      <div class="wk-step">
+        <div class="wk-day">Day 4-7</div>
+        <div class="wk-action">Daily emails A2-E2 through A2-E5. Lauren opens 3 of 5 but doesn't apply.</div>
+        <div class="wk-send">SEND: 4 emails. Engagement maintained (engaged-30d stays).</div>
+      </div>
+      <div class="wk-step branch">
+        <div class="wk-day">Day 8 · End of recoup</div>
+        <div class="wk-action">No application. Lauren moves to evergreen.</div>
+        <div class="wk-tags"><span class="wk-tag-off">-flow-webinar-recoup</span> <span class="wk-tag-on">+stage-replay-noshow</span> <span class="wk-tag-on">+flow-evergreen</span></div>
+      </div>
+      <div class="wk-step">
+        <div class="wk-day">Day 9-30</div>
+        <div class="wk-action">Lauren receives 18 daily broadcasts (Mon-Sat) at 9am CT. Opens 11. Clicks 2.</div>
+        <div class="wk-send">SEND: 18 broadcasts to engaged-30d segment</div>
+      </div>
+      <div class="wk-step branch">
+        <div class="wk-day">Day 28 · Last Thursday</div>
+        <div class="wk-action">Monthly power offer fires. Lauren is in engaged-30d.</div>
+        <div class="wk-tags"><span class="wk-tag-on">+flow-monthly-promo (temporary)</span></div>
+        <div class="wk-send">SEND: E-D1 + E-D2 + E-D3 over 72 hours.</div>
+      </div>
+      <div class="wk-step branch success">
+        <div class="wk-day">Day 30 · Saturday 23:47</div>
+        <div class="wk-action">Lauren clicks "apply" in E-D3. Submits application.</div>
+        <div class="wk-tags"><span class="wk-tag-off">-flow-evergreen</span> <span class="wk-tag-on">+stage-app-completed</span></div>
+        <div class="wk-send">→ Discord notification fires to #call-review. Setter reaches out.</div>
+      </div>
+      <div class="wk-step branch success">
+        <div class="wk-day">Day 33 · 11:00</div>
+        <div class="wk-action">Lauren books call with Alex. Shows up. Closes $5K.</div>
+        <div class="wk-tags"><span class="wk-tag-on">+stage-customer</span> <span class="wk-tag-on">+enrolled-june-cohort</span></div>
+        <div class="wk-send">→ Fanbasis webhook fires. Meta CAPI conversion event posted. Buyer welcome series begins.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9E: Build priority -->
+  <div class="ts-section">
+    <div class="ts-head">
+      <span class="ts-tag build">BUILD PRIORITY</span>
+      <div class="ts-title">What to bolt on first · ranked by leverage</div>
+    </div>
+    <div class="priority-grid">
+      <div class="prio-item p1">
+        <div class="prio-rank">1</div>
+        <div class="prio-name">Tag Taxonomy</div>
+        <div class="prio-impact">Foundation for everything else. ~31 tags across 4 dimensions.</div>
+        <div class="prio-effort">Effort: 2 hrs Terenz</div>
+      </div>
+      <div class="prio-item p2">
+        <div class="prio-rank">2</div>
+        <div class="prio-name">Engagement Auto-Tag Workflow</div>
+        <div class="prio-impact">Enables segmentation. Powers Flow D + monthly promo segment.</div>
+        <div class="prio-effort">Effort: 3 hrs Terenz</div>
+      </div>
+      <div class="prio-item p3">
+        <div class="prio-rank">3</div>
+        <div class="prio-name">VSL Watch Tracking</div>
+        <div class="prio-impact">Unlocks Ericson +12% Follow-Up Automation (single highest ROI).</div>
+        <div class="prio-effort">Effort: 4 hrs · needs Wistia/Vimeo + GHL webhook</div>
+      </div>
+      <div class="prio-item p4">
+        <div class="prio-rank">4</div>
+        <div class="prio-name">Re-engage → Sunset Flow</div>
+        <div class="prio-impact">Protects deliverability. Cleans dead weight every 90/180 days.</div>
+        <div class="prio-effort">Effort: 2 hrs Terenz + 4 emails (Claude)</div>
+      </div>
+      <div class="prio-item p5">
+        <div class="prio-rank">5</div>
+        <div class="prio-name">Seed List + Mailgenius</div>
+        <div class="prio-impact">Monthly inbox placement monitoring. Catches deliverability drops early.</div>
+        <div class="prio-effort">Effort: 1 hr setup + $79/mo</div>
+      </div>
+      <div class="prio-item p6">
+        <div class="prio-rank">6</div>
+        <div class="prio-name">EPS/EPO/EPC tracking</div>
+        <div class="prio-impact">Replaces broken open-rate dependency. Identify which emails make money.</div>
+        <div class="prio-effort">Effort: 2 hrs · adapt Troy's xlsx + weekly ritual</div>
+      </div>
+    </div>
   </div>
 </section>
 
