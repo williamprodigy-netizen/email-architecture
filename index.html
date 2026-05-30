@@ -237,6 +237,76 @@
   .verdict { margin-top: 18px; padding: 16px 18px; background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 6px; }
   .verdict-tag { font-size: 9.5px; font-weight: 700; color: var(--green); letter-spacing: 0.1em; font-family: 'SF Mono', monospace; margin-bottom: 8px; display: inline-block; }
   .verdict p { font-size: 12.5px; line-height: 1.6; margin: 8px 0; }
+
+  /* Launch — Q&A grid */
+  .qa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .qa { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .qa .q { font-size: 13px; font-weight: 700; color: var(--yellow); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .qa .a { font-size: 12px; line-height: 1.65; color: var(--text); }
+
+  /* Launch timeline */
+  .launch-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+  .launch-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .launch-tag { font-size: 9.5px; font-weight: 700; color: var(--blue); background: var(--blue-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .launch-title { font-size: 15px; font-weight: 600; }
+  .launch-timeline { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; }
+  .lt-row { display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 8px; padding: 10px 12px; background: var(--panel-2); border-radius: 6px; border: 1px solid var(--border); }
+  .lt-row.lt-header { background: transparent; border-color: transparent; padding: 6px 12px; }
+  .lt-header .lt-day-col, .lt-header .lt-lane { color: var(--muted); font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .lt-day-col { display: flex; align-items: center; gap: 6px; }
+  .lt-d { font-family: 'SF Mono', monospace; font-size: 18px; font-weight: 700; color: var(--text); }
+  .lt-sub { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .lt-lane { color: var(--text); line-height: 1.5; padding: 2px 0; }
+  .lt-row.lt-soft { background: linear-gradient(135deg, rgba(251,191,36,0.05), transparent); border-color: #4a3416; }
+  .lt-row.lt-live { background: linear-gradient(135deg, rgba(74,222,128,0.06), transparent); border-color: #1d4030; }
+
+  /* Three-column to-do */
+  .todo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .todo-col { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .todo-col.terenz-col { border-top: 3px solid var(--blue); }
+  .todo-col.will-col { border-top: 3px solid var(--yellow); }
+  .todo-col.claude-col { border-top: 3px solid var(--green); }
+  .todo-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .todo-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .terenz-badge { color: var(--blue); background: var(--blue-bg); }
+  .will-badge { color: var(--yellow); background: var(--yellow-bg); }
+  .claude-badge { color: var(--green); background: var(--green-bg); }
+  .todo-est { font-size: 10px; color: var(--muted); font-family: 'SF Mono', monospace; }
+  .todo-h { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 14px 0 6px; }
+  .todo-h:first-of-type { margin-top: 0; }
+  .todo-list { list-style: none; padding: 0; }
+  .todo-list li { font-size: 11.5px; padding: 4px 0 4px 14px; position: relative; line-height: 1.5; color: var(--text); }
+  .todo-list li::before { content: '□'; position: absolute; left: 0; color: var(--dim); font-family: 'SF Mono', monospace; }
+
+  /* Bank section */
+  .bank-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+  .bank-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .bank-tag { font-size: 9.5px; font-weight: 700; color: var(--purple); background: var(--purple-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .bank-title { font-size: 15px; font-weight: 600; }
+  .bank-grid { display: grid; grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr; gap: 8px; align-items: center; margin-bottom: 18px; }
+  .bank-stage { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; text-align: center; }
+  .bank-num { font-size: 28px; font-weight: 700; font-family: 'SF Mono', monospace; color: var(--green); letter-spacing: -0.02em; }
+  .bank-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; font-weight: 600; }
+  .bank-desc { font-size: 11px; color: var(--text); line-height: 1.5; margin-top: 10px; }
+  .bank-arrow { font-size: 20px; color: var(--dim); text-align: center; }
+  .bank-warn { padding: 14px 16px; background: linear-gradient(135deg, rgba(248,113,113,0.06), transparent); border: 1px solid #4a1f1f; border-radius: 8px; font-size: 12px; line-height: 1.6; }
+  .bank-warn .callout-key { color: var(--red); }
+
+  /* Kickoff */
+  .kickoff { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .kickoff-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .kickoff-tag { font-size: 9.5px; font-weight: 700; color: var(--orange); background: var(--orange-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .kickoff-title { font-size: 15px; font-weight: 600; }
+  .kickoff-options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .kickoff-opt { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; }
+  .kickoff-opt.spec { border-left: 3px solid var(--blue); }
+  .kickoff-opt.copy { border-left: 3px solid var(--green); }
+  .opt-label { font-size: 9.5px; color: var(--muted); font-weight: 700; letter-spacing: 0.1em; font-family: 'SF Mono', monospace; }
+  .opt-title { font-size: 16px; font-weight: 700; margin: 4px 0 12px; letter-spacing: -0.01em; }
+  .kickoff-opt.spec .opt-title { color: var(--blue); }
+  .kickoff-opt.copy .opt-title { color: var(--green); }
+  .opt-desc { font-size: 12px; line-height: 1.7; color: var(--text); margin-bottom: 12px; }
+  .opt-when { font-size: 11px; color: var(--muted); padding-top: 10px; border-top: 1px solid var(--border); font-style: italic; }
 </style>
 </head>
 <body>
@@ -932,6 +1002,320 @@
     <span><span style="display:inline-block;width:10px;height:10px;background:#15263d;border:1px solid #1a2e4d;border-radius:2px;vertical-align:middle;margin-right:4px"></span>wire in GHL</span>
     <span><span style="display:inline-block;width:10px;height:10px;background:#0f2a1c;border:1px solid #1d4030;border-radius:2px;vertical-align:middle;margin-right:4px"></span>live</span>
     <span><span style="display:inline-block;width:10px;height:10px;background:#211433;border:1px solid #321f4d;border-radius:2px;vertical-align:middle;margin-right:4px"></span>document</span>
+  </div>
+</section>
+
+<!-- SECTION 07: LAUNCH GAME PLAN -->
+<section>
+  <h2><span class="num">07</span> Launch Game Plan — You + Terenz + Claude · 7 days to first send <span class="rule"></span></h2>
+
+  <!-- 7A: Direct Answers -->
+  <div class="qa-grid">
+    <div class="qa">
+      <div class="q">Do you have the copy already?</div>
+      <div class="a">
+        <strong class="green-text">Partially.</strong> You have post-BAC 14-email, Skool nurture, webinar email/SMS, reactivation flow.
+        <br><br>
+        <strong class="red-text">Missing ~38 emails:</strong> 30 daily broadcasts + 4 re-engage + 3 monthly promo + 1 sunset.
+        <br><br>
+        <strong>Existing copy needs Gloria-voice audit</strong> before migrating into new spine.
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">How many evergreen to prep upfront?</div>
+      <div class="a">
+        <strong class="green-text">30.</strong> Five weeks of Mon–Sat. Then write 4 fresh + reuse 2 evergreen every week (Fazio rhythm).
+        <br><br>
+        <strong class="red-text">"6 months ahead" = trap.</strong> Procrastination dressed as planning. Half will be dead by month 3 (churned customers, past launches, stale events).
+        <br><br>
+        <strong>Bank grows to ~90 over 3 months naturally.</strong>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Do you need to do anything?</div>
+      <div class="a">
+        <strong class="green-text">Yes — 3 non-delegables:</strong>
+        <br><br>
+        1. Approve tag taxonomy spine (2 min)
+        <br>
+        2. Voice-check first 5 broadcasts (Gloria sound)
+        <br>
+        3. Sign off on sunset policy (you're killing dead contacts — your call)
+        <br><br>
+        ~7 hours total over the week. Terenz + I handle the rest.
+      </div>
+    </div>
+  </div>
+
+  <!-- 7B: 7-Day Timeline -->
+  <div class="launch-section">
+    <div class="launch-head">
+      <span class="launch-tag">7-DAY LAUNCH</span>
+      <div class="launch-title">Day-by-day owner lanes</div>
+    </div>
+    <div class="launch-timeline">
+      <div class="lt-row lt-header">
+        <div class="lt-day-col">DAY</div>
+        <div class="lt-lane lt-terenz">TERENZ (tech)</div>
+        <div class="lt-lane lt-will">WILL (QC + approvals)</div>
+        <div class="lt-lane lt-claude">CLAUDE (copy + specs)</div>
+      </div>
+      <div class="lt-row">
+        <div class="lt-day-col"><div class="lt-d">0</div><div class="lt-sub">today</div></div>
+        <div class="lt-lane">—</div>
+        <div class="lt-lane">Sign off on tag spine + voice direction</div>
+        <div class="lt-lane">Start drafting 30 broadcasts in Gloria voice</div>
+      </div>
+      <div class="lt-row">
+        <div class="lt-day-col"><div class="lt-d">1</div></div>
+        <div class="lt-lane">Kill 57 draft workflows · rename placeholders · build 31-tag taxonomy</div>
+        <div class="lt-lane">Approve tag spine after Terenz builds</div>
+        <div class="lt-lane">Continue broadcast drafts</div>
+      </div>
+      <div class="lt-row">
+        <div class="lt-day-col"><div class="lt-d">2</div></div>
+        <div class="lt-lane">Engagement auto-tag workflow · flow-evergreen container</div>
+        <div class="lt-lane">Voice-check first 5 broadcasts (REJECT non-Gloria)</div>
+        <div class="lt-lane">Deliver first 15 broadcasts (Mon Wk1 → Sat Wk3)</div>
+      </div>
+      <div class="lt-row">
+        <div class="lt-day-col"><div class="lt-d">3</div></div>
+        <div class="lt-lane">Re-engage → sunset (Flow D) · monthly promo cron (Flow E)</div>
+        <div class="lt-lane">—</div>
+        <div class="lt-lane">Deliver remaining 15 broadcasts + 4 re-engage + 3 monthly promo</div>
+      </div>
+      <div class="lt-row">
+        <div class="lt-day-col"><div class="lt-d">4</div></div>
+        <div class="lt-lane">Migrate post-BAC 14-email · Skool nurture · webinar into spine</div>
+        <div class="lt-lane">—</div>
+        <div class="lt-lane">Audit existing flow copy · flag non-Gloria voice for rewrite</div>
+      </div>
+      <div class="lt-row">
+        <div class="lt-day-col"><div class="lt-d">5</div></div>
+        <div class="lt-lane">Seed list (10 inboxes) · SPF/DKIM/DMARC verify · end-to-end test</div>
+        <div class="lt-lane">Run test contact yourself — does correct sequence fire?</div>
+        <div class="lt-lane">GHL workflow JSON specs for Terenz import</div>
+      </div>
+      <div class="lt-row lt-soft">
+        <div class="lt-day-col"><div class="lt-d">6</div><div class="lt-sub">soft</div></div>
+        <div class="lt-lane">Monitor: opens, clicks, replies, placement %</div>
+        <div class="lt-lane">First daily broadcast sends → engaged-30d ONLY. Read every reply.</div>
+        <div class="lt-lane">—</div>
+      </div>
+      <div class="lt-row lt-live">
+        <div class="lt-day-col"><div class="lt-d">7</div><div class="lt-sub">LIVE</div></div>
+        <div class="lt-lane">First monthly promo cron scheduled</div>
+        <div class="lt-lane">Full launch · monitor weekly metrics</div>
+        <div class="lt-lane">Vault documentation in 03 Projects/Email Architecture/</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7C: Three-Column To-Do -->
+  <div class="todo-grid">
+    <div class="todo-col terenz-col">
+      <div class="todo-head">
+        <span class="todo-badge terenz-badge">TERENZ</span>
+        <div class="todo-est">~20 hrs over week</div>
+      </div>
+      <h3 class="todo-h">GHL Consolidation (Day 1)</h3>
+      <ul class="todo-list">
+        <li>Kill 57 draft workflows</li>
+        <li>Rename 5 "New Workflow : 1777..." placeholders</li>
+        <li>Merge dupes (3 "booked a call" variants)</li>
+        <li>Single Workflow Index doc</li>
+      </ul>
+      <h3 class="todo-h">Tag Taxonomy (Day 1)</h3>
+      <ul class="todo-list">
+        <li>6 source tags (src-*)</li>
+        <li>14 stage tags (stage-*)</li>
+        <li>4 engagement tags (engaged-30d, cold-90d, etc)</li>
+        <li>7 flow tags (flow-*)</li>
+      </ul>
+      <h3 class="todo-h">Auto-Tag Engine (Day 2)</h3>
+      <ul class="todo-list">
+        <li>Open/click/reply → engaged-30d</li>
+        <li>30d silent → engaged-90d</li>
+        <li>90d silent → cold-90d, trigger Flow D</li>
+        <li>180d silent → cold-180d, suppress sends</li>
+      </ul>
+      <h3 class="todo-h">Flow Wiring (Day 2-3)</h3>
+      <ul class="todo-list">
+        <li>Flow A: Webinar (migrate 14-email + branch)</li>
+        <li>Flow B: Skool 7-day (migrate nurture)</li>
+        <li>Flow C: Evergreen container</li>
+        <li>Flow D: Re-engage → sunset (new build)</li>
+        <li>Flow E: Monthly promo (last Thu cron)</li>
+      </ul>
+      <h3 class="todo-h">Deliverability + Test (Day 5)</h3>
+      <ul class="todo-list">
+        <li>SPF/DKIM/DMARC verified on email.ugc-world.com</li>
+        <li>10-inbox seed list (Gmail x4 / Outlook x3 / Yahoo x2 / iCloud x1)</li>
+        <li>Mailgenius monthly placement test scheduled</li>
+        <li>Confirm subdomain isolation</li>
+        <li>End-to-end test contact across all 3 sources</li>
+      </ul>
+    </div>
+
+    <div class="todo-col will-col">
+      <div class="todo-head">
+        <span class="todo-badge will-badge">WILL</span>
+        <div class="todo-est">~7 hrs over week</div>
+      </div>
+      <h3 class="todo-h">Day 1 — Tag Spine QC</h3>
+      <ul class="todo-list">
+        <li>Every contact has exactly 1 source + 1 stage + 1 engagement + 1 flow</li>
+        <li>Open 5 random contacts to verify</li>
+        <li>Flag mismatches to Terenz</li>
+      </ul>
+      <h3 class="todo-h">Day 2 — Voice Check</h3>
+      <ul class="todo-list">
+        <li>First 5 broadcasts — Gloria voice or corporate ghost?</li>
+        <li>Reference: Copy SSOT/01 Winners + 02 Swipes/Gloria</li>
+        <li>Reject anything that doesn't sound like her</li>
+      </ul>
+      <h3 class="todo-h">Day 5 — Test Run</h3>
+      <ul class="todo-list">
+        <li>Opt in as fake webinar reg from clean inbox</li>
+        <li>E1 confirmation lands?</li>
+        <li>E2 hype 24h later — Primary or Promotions?</li>
+        <li>Promotions = deliverability flag</li>
+      </ul>
+      <h3 class="todo-h">Day 6+ — Reply Farming</h3>
+      <ul class="todo-list">
+        <li>Read every reply that comes back</li>
+        <li>Replies = #1 deliverability + ICP signal</li>
+        <li>Feed reply themes into Messaging Cockpit</li>
+      </ul>
+      <h3 class="todo-h">Week 1 metrics</h3>
+      <ul class="todo-list">
+        <li>Ignore open rate (Apple MPP)</li>
+        <li>Click &gt;3%, reply &gt;1%, unsub &lt;0.3%</li>
+        <li>Unsub spike = voice issue</li>
+      </ul>
+      <h3 class="todo-h">Week 2 + 4</h3>
+      <ul class="todo-list">
+        <li>Wk2: inbox placement &gt;90% (Mailgenius)</li>
+        <li>Wk4: QC first monthly power offer before send</li>
+        <li>Doors-close revenue = keystone test</li>
+      </ul>
+    </div>
+
+    <div class="todo-col claude-col">
+      <div class="todo-head">
+        <span class="todo-badge claude-badge">CLAUDE</span>
+        <div class="todo-est">~38 emails + specs + docs</div>
+      </div>
+      <h3 class="todo-h">Day 0-1 — Broadcast Bank</h3>
+      <ul class="todo-list">
+        <li>30 broadcasts in Gloria voice</li>
+        <li>Mix: 10 story / 5 POV / 5 proof / 5 teach / 5 Q&amp;A</li>
+        <li>Modeled on Copy SSOT winners + Fazio structure</li>
+        <li>Plain text, 200-400 words, P.S. CTA</li>
+      </ul>
+      <h3 class="todo-h">Day 2 — Flow Copy</h3>
+      <ul class="todo-list">
+        <li>4 re-engage emails (Ericson style)</li>
+        <li>3 monthly promo template</li>
+        <li>1 sunset confirmation</li>
+      </ul>
+      <h3 class="todo-h">Day 4 — Audit Existing</h3>
+      <ul class="todo-list">
+        <li>14-email post-BAC voice check</li>
+        <li>Skool nurture voice check</li>
+        <li>Webinar email voice check</li>
+        <li>Flag non-Gloria for rewrite</li>
+      </ul>
+      <h3 class="todo-h">Day 5 — Tech Specs</h3>
+      <ul class="todo-list">
+        <li>GHL workflow JSON for Flow D import</li>
+        <li>GHL workflow JSON for Flow E import</li>
+        <li>Engagement auto-tag workflow spec</li>
+        <li>Seed list inbox template</li>
+      </ul>
+      <h3 class="todo-h">Day 7 — Documentation</h3>
+      <ul class="todo-list">
+        <li>03 Projects/Email Architecture/CLAUDE.md</li>
+        <li>Full system + tag taxonomy + flow specs</li>
+        <li>Escalation playbook for deliverability issues</li>
+      </ul>
+      <h3 class="todo-h">Ongoing</h3>
+      <ul class="todo-list">
+        <li>Weekly: 4 fresh broadcasts (you write 2 from life)</li>
+        <li>Weekly: reply theme rollup into Messaging Cockpit</li>
+        <li>Monthly: power offer copy draft</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7D: Evergreen Bank Strategy -->
+  <div class="bank-section">
+    <div class="bank-head">
+      <span class="bank-tag">EVERGREEN BANK</span>
+      <div class="bank-title">Why 30, not 180 — and how the bank grows</div>
+    </div>
+    <div class="bank-grid">
+      <div class="bank-stage">
+        <div class="bank-num">30</div>
+        <div class="bank-label">STARTER BANK</div>
+        <div class="bank-desc">5 weeks Mon–Sat. Written by me in Gloria voice. Mix: 10 story / 5 POV / 5 proof / 5 teach / 5 Q&amp;A.</div>
+      </div>
+      <div class="bank-arrow">→</div>
+      <div class="bank-stage">
+        <div class="bank-num">+4/wk</div>
+        <div class="bank-label">WEEKLY CADENCE</div>
+        <div class="bank-desc">4 fresh + 2 evergreen rerun per week. Fresh = current wins, launches, events. Bank grows by 4/week naturally.</div>
+      </div>
+      <div class="bank-arrow">→</div>
+      <div class="bank-stage">
+        <div class="bank-num">~80</div>
+        <div class="bank-label">MONTH 3</div>
+        <div class="bank-desc">Bank is ~80 evergreen. Library is functional. Rotation prevents repetition.</div>
+      </div>
+      <div class="bank-arrow">→</div>
+      <div class="bank-stage">
+        <div class="bank-num">~150</div>
+        <div class="bank-label">MONTH 6 (max)</div>
+        <div class="bank-desc">Cap here. Bigger bank = stale references. Old broadcasts age out naturally.</div>
+      </div>
+    </div>
+    <div class="bank-warn">
+      <span class="callout-key">DON'T:</span> try to write 6 months upfront. You won't. And if you do, half will be dead by month 3 (churned customers, past launches, stale events). <strong>Evergreen = timeless content fires any week. Not = written far ahead.</strong>
+    </div>
+  </div>
+
+  <!-- 7E: ASAP Bottom Line + Kickoff -->
+  <div class="kickoff">
+    <div class="kickoff-head">
+      <span class="kickoff-tag">KICKOFF</span>
+      <div class="kickoff-title">Two ways to start now — they don't conflict, do both in parallel</div>
+    </div>
+    <div class="kickoff-options">
+      <div class="kickoff-opt spec">
+        <div class="opt-label">OPTION 1</div>
+        <div class="opt-title">SPEC MODE</div>
+        <div class="opt-desc">
+          Claude writes:<br>
+          → Consolidation audit (which of 57 drafts to kill / merge / keep)<br>
+          → GHL workflow JSON for Terenz import (Flows D + E)<br>
+          → Engagement auto-tag workflow spec<br>
+          → Migration map (existing flows → new spine)
+        </div>
+        <div class="opt-when">Output: ready for Terenz to start Day 1 immediately</div>
+      </div>
+      <div class="kickoff-opt copy">
+        <div class="opt-label">OPTION 2</div>
+        <div class="opt-title">COPY MODE</div>
+        <div class="opt-desc">
+          Claude writes:<br>
+          → 30 Gloria-voice broadcasts (5 weeks Mon–Sat)<br>
+          → 4 re-engage emails (Ericson-style)<br>
+          → 3 monthly promo template<br>
+          → 1 sunset confirmation
+        </div>
+        <div class="opt-when">Output: 38 emails ready for your voice review tomorrow</div>
+      </div>
+    </div>
   </div>
 </section>
 
