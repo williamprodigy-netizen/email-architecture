@@ -307,6 +307,100 @@
   .kickoff-opt.copy .opt-title { color: var(--green); }
   .opt-desc { font-size: 12px; line-height: 1.7; color: var(--text); margin-bottom: 12px; }
   .opt-when { font-size: 11px; color: var(--muted); padding-top: 10px; border-top: 1px solid var(--border); font-style: italic; }
+
+  /* Ericson SOPs */
+  .ericson-intro { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; }
+  .ericson-badge { font-size: 9.5px; font-weight: 700; color: var(--green); background: var(--green-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .ericson-source { font-size: 11.5px; color: var(--muted); }
+
+  .ericson-tldr { background: linear-gradient(135deg, rgba(74,222,128,0.06), transparent); border: 1px solid #1d4030; border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; }
+  .tldr-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .tldr-tag { font-size: 10px; font-weight: 700; color: var(--green); background: var(--green-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.08em; font-family: 'SF Mono', monospace; }
+  .tldr-title { font-size: 14px; font-weight: 600; }
+  .tldr-list { padding-left: 22px; font-size: 12.5px; line-height: 1.8; color: var(--text); }
+  .tldr-list li { padding: 2px 0; }
+
+  /* The 5 Automations */
+  .autos-section { margin-bottom: 24px; }
+  .autos-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .autos-tag { font-size: 9.5px; font-weight: 700; color: var(--blue); background: var(--blue-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .autos-title { font-size: 14px; font-weight: 600; }
+  .autos-grid { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 12px; margin-bottom: 12px; }
+  .autos-grid > .auto-card:nth-child(4), .autos-grid > .auto-card:nth-child(5) { grid-column: span 2; }
+  .auto-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .auto-card.big { background: linear-gradient(135deg, rgba(248,113,113,0.04), transparent); border-color: #4a1f1f; }
+  .auto-name { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .auto-card.big .auto-name { color: var(--red); }
+  .auto-count { font-size: 10.5px; color: var(--muted); font-family: 'SF Mono', monospace; margin-top: 2px; margin-bottom: 12px; }
+  .auto-seq { width: 100%; font-size: 11px; border-collapse: collapse; }
+  .auto-seq td { padding: 4px 6px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.45; }
+  .auto-seq tr:last-child td { border-bottom: none; }
+  .auto-seq td:first-child { color: var(--muted); font-family: 'SF Mono', monospace; font-size: 10px; width: 30px; font-weight: 600; }
+  .auto-seq td:nth-child(2) { color: var(--yellow); font-family: 'SF Mono', monospace; font-size: 10px; width: 80px; }
+  .auto-why { font-size: 11px; color: var(--muted); margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); line-height: 1.55; }
+  .auto-body { font-size: 11.5px; color: var(--text); line-height: 1.6; margin-top: 8px; }
+  .phases { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .phase { background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; }
+  .phase-tag { font-size: 9.5px; font-weight: 700; color: var(--yellow); margin-bottom: 6px; letter-spacing: 0.05em; font-family: 'SF Mono', monospace; }
+  .phase ul { list-style: none; padding: 0; font-size: 11px; line-height: 1.5; }
+  .phase li { padding: 2px 0 2px 12px; position: relative; }
+  .phase li::before { content: '·'; position: absolute; left: 2px; color: var(--dim); font-weight: 700; }
+
+  /* Follow-Up */
+  .followup-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; }
+  .followup-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .followup-tag { font-size: 9.5px; font-weight: 700; color: var(--yellow); background: var(--yellow-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .followup-title { font-size: 14px; font-weight: 600; }
+  .followup-intro { font-size: 12px; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+  .followup-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .followup-table thead th { background: var(--panel-2); color: var(--muted); font-weight: 600; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  .followup-table tbody td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .followup-table tbody tr:last-child td { border-bottom: none; }
+  .followup-why { margin-top: 14px; padding: 12px 14px; background: var(--panel-2); border-radius: 6px; font-size: 11.5px; line-height: 1.6; }
+
+  /* Reply email */
+  .reply-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; }
+  .reply-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .reply-tag { font-size: 9.5px; font-weight: 700; color: var(--purple); background: var(--purple-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .reply-title { font-size: 14px; font-weight: 600; }
+  .reply-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .reply-template { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .reply-template-label { font-size: 9.5px; color: var(--muted); font-weight: 700; letter-spacing: 0.08em; font-family: 'SF Mono', monospace; margin-bottom: 8px; }
+  .reply-adapted { background: linear-gradient(135deg, rgba(74,222,128,0.06), transparent); border: 1px solid #1d4030; border-radius: 8px; padding: 12px 14px; }
+  .reply-adapted .reply-template-label { color: var(--green); }
+  .reply-pre { font-family: 'SF Mono', Menlo, monospace; font-size: 11px; line-height: 1.55; color: var(--text); white-space: pre-wrap; margin: 0; }
+  .reply-why { font-size: 11.5px; line-height: 1.6; padding: 12px 14px; background: var(--panel-2); border-radius: 6px; }
+
+  /* The 4 Stats */
+  .stats-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; }
+  .stats-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .stats-tag { font-size: 9.5px; font-weight: 700; color: var(--orange); background: var(--orange-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .stats-title { font-size: 14px; font-weight: 600; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+  .stat-metric { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .sm-name { font-size: 22px; font-weight: 700; font-family: 'SF Mono', monospace; color: var(--orange); letter-spacing: -0.02em; }
+  .sm-full { font-size: 11px; color: var(--text); margin-top: 2px; font-weight: 600; }
+  .sm-formula { font-size: 10.5px; color: var(--muted); font-family: 'SF Mono', monospace; margin-top: 8px; padding: 4px 8px; background: #0a0a0a; border-radius: 4px; display: inline-block; }
+  .sm-meaning { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  .stats-why { font-size: 11.5px; line-height: 1.6; padding: 12px 14px; background: var(--panel-2); border-radius: 6px; }
+
+  /* Map table */
+  .map-section { margin-bottom: 24px; }
+  .map-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+  .map-tag { font-size: 9.5px; font-weight: 700; color: var(--green); background: var(--green-bg); padding: 3px 9px; border-radius: 4px; letter-spacing: 0.06em; font-family: 'SF Mono', monospace; }
+  .map-title { font-size: 14px; font-weight: 600; }
+  .map-table { width: 100%; border-collapse: collapse; font-size: 11.5px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .map-table thead th { background: var(--panel-2); color: var(--muted); font-weight: 600; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  .map-table tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .map-table tbody tr:last-child td { border-bottom: none; }
+  .map-table td.ok { color: var(--green); font-weight: 500; }
+  .map-table td.warn { color: var(--yellow); font-weight: 500; }
+  .map-table td.bad { color: var(--red); font-weight: 500; }
+
+  /* Verdict */
+  .ericson-verdict { padding: 18px 22px; background: linear-gradient(135deg, rgba(248,113,113,0.06), rgba(251,191,36,0.04)); border: 1px solid #4a3416; border-left: 3px solid var(--red); border-radius: 8px; }
+  .ericson-verdict p { font-size: 12.5px; line-height: 1.7; margin: 6px 0; }
+  .ericson-verdict p:first-of-type { margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -1316,6 +1410,261 @@
         <div class="opt-when">Output: 38 emails ready for your voice review tomorrow</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- SECTION 08: ERICSON SOPs (FROM HIS COURSE) -->
+<section>
+  <h2><span class="num">08</span> Troy Ericson SOPs — Pulled From His Email Paramedic Course <span class="rule"></span></h2>
+
+  <div class="ericson-intro">
+    <span class="ericson-badge">SOURCE</span>
+    <div class="ericson-source">Troy Ericson's "Email List Management" course · Module 3 (3.1 → 3.7) · downloaded from Mega · 2.2GB · 7 videos + 2 docx templates + 1 stat-tracking xlsx</div>
+  </div>
+
+  <!-- 8A: 5-line TL;DR -->
+  <div class="ericson-tldr">
+    <div class="tldr-head">
+      <span class="tldr-tag">TL;DR</span>
+      <div class="tldr-title">What Ericson actually does — 5 lines</div>
+    </div>
+    <ol class="tldr-list">
+      <li><strong>5 automations matter.</strong> Build once, print money forever.</li>
+      <li><strong>Opt-in welcome = 30 emails.</strong> Not 7. THIRTY. 2/day first week, taper.</li>
+      <li><strong>Every automation sells.</strong> No "pure value." Direct CTA or community CTA in P.S.</li>
+      <li><strong>Track 4 numbers.</strong> EPS / EPO / EPC / PPM — opens are dead, earnings-per-signal aren't.</li>
+      <li><strong>The high-ticket move = the Reply Email.</strong> Skip the call booking. Get a reply, sell in DM.</li>
+    </ol>
+  </div>
+
+  <!-- 8B: The 5 Automations Grid -->
+  <div class="autos-section">
+    <div class="autos-head">
+      <span class="autos-tag">THE 5 AUTOMATIONS</span>
+      <div class="autos-title">From Module 3.4 templates (1,566 lines of working copy)</div>
+    </div>
+    <div class="autos-grid">
+
+      <div class="auto-card">
+        <div class="auto-name">Abandoned Cart</div>
+        <div class="auto-count">7 emails / 5 days</div>
+        <table class="auto-seq">
+          <tr><td>E1</td><td>+30 min</td><td>Your order (incomplete) — social proof + 48h scarcity</td></tr>
+          <tr><td>E2</td><td>+6 hrs</td><td>Problem with your order — stock urgency</td></tr>
+          <tr><td>E3</td><td>+next day</td><td>PROOF — testimonial stack (6+)</td></tr>
+          <tr><td>E4</td><td>+next day</td><td>FAQ — 12 Qs, every objection killed</td></tr>
+          <tr><td>E5</td><td>+next day</td><td>Is it the money? — price objection direct</td></tr>
+          <tr><td>E6</td><td>+next day</td><td>📸 New photo — fresh social proof</td></tr>
+          <tr><td>E7</td><td>+next day</td><td>Last chance — final close</td></tr>
+        </table>
+        <div class="auto-why">Most accounts stop at 3. E4-7 recover 10-15% more carts. Pure profit.</div>
+      </div>
+
+      <div class="auto-card">
+        <div class="auto-name">Buyer Welcome</div>
+        <div class="auto-count">6 emails + 1 anniversary</div>
+        <table class="auto-seq">
+          <tr><td>E1</td><td>Immediately</td><td>Your Order — onboarding + expectations</td></tr>
+          <tr><td>E2</td><td>+2 hrs</td><td>Forgot to ask you — survey, reply farm</td></tr>
+          <tr><td>E3</td><td>Order ships</td><td>Tracking + reassurance</td></tr>
+          <tr><td>E4</td><td>+2 days</td><td>Almost forgot to invite you — community CTA</td></tr>
+          <tr><td>E5</td><td>Order arrives</td><td>Did you try it yet? — activation</td></tr>
+          <tr><td>E6</td><td>+1 week</td><td>Get fitter, faster? — UPSELL</td></tr>
+          <tr><td>Ann.</td><td>+1 month</td><td>Anniversary gift — graduates to daily broadcasts</td></tr>
+        </table>
+        <div class="auto-why">+1 month transition = buyer moves onto main list. Don't isolate them forever.</div>
+      </div>
+
+      <div class="auto-card big">
+        <div class="auto-name">Opt-in Welcome</div>
+        <div class="auto-count">30 emails / 3-4 weeks · 2/day first week</div>
+        <div class="phases">
+          <div class="phase">
+            <div class="phase-tag">PHASE 1 · HARD SELL · E1-4 · 2/day</div>
+            <ul>
+              <li>E1 — Case study with proof screenshots</li>
+              <li>E2 — Follow-up question, reply farm</li>
+              <li>E3 — PROOF stack (12+ testimonials)</li>
+              <li>E4 — FAQ with 12 numbered Qs killing every objection</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-tag">PHASE 2 · GREATEST HITS · E5-10 · daily</div>
+            <ul>
+              <li>Pull in best-performing past broadcasts</li>
+              <li>"Since they worked once, add them to automation"</li>
+              <li>Topics: weird Zoom call, risky FB post, deliverability tips</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-tag">PHASE 3 · SUSTAINED PUSH · E11-20 · daily</div>
+            <ul>
+              <li>Revenue calculator, expert episodes, story angles</li>
+              <li>"LEAKED" / "FREE" angles for the offer</li>
+              <li>Personal vulnerability + calls to book</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-tag">PHASE 4 · BRANCH OUT · E21-30 · daily</div>
+            <ul>
+              <li>"If they haven't booked by now, they want to know you more first"</li>
+              <li>Deep stories ("I watched a man die..."), how-to content</li>
+              <li>Email swipe file, dopamine detox angle, etc.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="auto-why">
+          <strong class="red-text">THIS IS YOUR BIGGEST GAP.</strong> Your Skool 7-day = 7 emails. Ericson would say not enough. Every new opt-in deserves a 4-week tailored pitch sequence before generic broadcasts. Greatest-hits broadcasts become the opt-in welcome.
+        </div>
+      </div>
+
+      <div class="auto-card">
+        <div class="auto-name">Upsell</div>
+        <div class="auto-count">Triggered post-buy</div>
+        <p class="auto-body">"You just got X — here's how to get even better results with Y." Never lead with upsell. Welcome first, upsell after E6 or sooner if engaged.</p>
+      </div>
+
+      <div class="auto-card">
+        <div class="auto-name">Downsell</div>
+        <div class="auto-count">Triggered on upsell decline</div>
+        <p class="auto-body">"Not ready for the upgrade? Try the lite version / payment plan / smaller bundle." Loops back to upsell after they get results.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 8C: Follow-Up Automation (+12% sales) -->
+  <div class="followup-section">
+    <div class="followup-head">
+      <span class="followup-tag">FOLLOW-UP AUTOMATION</span>
+      <div class="followup-title">Module 3.5 — the #1 most underrated automation · +12% sales lift</div>
+    </div>
+    <p class="followup-intro">Triggers an email automatically when ANY action happens. Not just abandoned cart — abandoned VSL, abandoned booking, abandoned form, repeat opens.</p>
+    <table class="followup-table">
+      <thead>
+        <tr><th>Behavior</th><th>Trigger delay</th><th>Email subject pattern</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Watched 50% of VSL, no opt-in</td><td>+1 hour</td><td>"Saw you watching — questions?"</td></tr>
+        <tr><td>Booked a call, no-showed</td><td>After call time</td><td>"Missed you — rebook?"</td></tr>
+        <tr><td>Clicked link, no buy</td><td>+24h</td><td>"Saw you peek at X"</td></tr>
+        <tr><td>Started form, abandoned</td><td>+30 min</td><td>"Lost something? Here's your spot"</td></tr>
+        <tr><td>Opened high-intent email 3+ times, no action</td><td>After 3rd open</td><td>"Saw you reading — want to chat?"</td></tr>
+      </tbody>
+    </table>
+    <div class="followup-why">Why it works: user is HOT in the moment. 1-hour delay catches them mid-consideration. Most accounts never set this up because it needs behavioral tracking. <strong class="green-text">+12% sales, single automation.</strong></div>
+  </div>
+
+  <!-- 8D: The Reply Email -->
+  <div class="reply-section">
+    <div class="reply-head">
+      <span class="reply-tag">REPLY EMAIL</span>
+      <div class="reply-title">Module 3.6 — high-ticket without call bookings · the Gloria unlock</div>
+    </div>
+    <div class="reply-grid">
+      <div class="reply-template">
+        <div class="reply-template-label">RAW TEMPLATE (from docx)</div>
+        <pre class="reply-pre">Subject: want to test?
+
+I'm looking for 5-8 [Type of People] that
+want to test my program…
+
+Before you reply, I only want people really
+struggling with [the problem of target audience].
+
+Reply &amp; tell me your number one struggle right
+now [with problem target audience is facing]?
+
+[Sender Name]</pre>
+      </div>
+      <div class="reply-adapted">
+        <div class="reply-template-label">ADAPTED FOR UGC WORLD (Gloria voice)</div>
+        <pre class="reply-pre">Subject: want to test?
+
+I'm looking for 5-8 female creators that want to
+test my new client-acquisition system…
+
+Before you reply, I only want people who've tried
+UGC and gotten ZERO inbound brand deals.
+
+Reply &amp; tell me your number one sticking point
+right now — agency rejection? Skool unclear?
+no DMs from brands? something else?
+
+— Gloria</pre>
+      </div>
+    </div>
+    <div class="reply-why">
+      <strong>Why it works:</strong> lower friction than "book a call" (just hit reply). Filters for high-intent (must articulate #1 struggle). Starts 1:1 DM thread — easier to close $5K via chat. Scarcity built in ("5-8 people"). Reply → diagnostic Qs → soft-pitch in DM → Stripe link or call from inside the DM.
+    </div>
+  </div>
+
+  <!-- 8E: The 4 Stats -->
+  <div class="stats-section">
+    <div class="stats-head">
+      <span class="stats-tag">THE 4 STATS</span>
+      <div class="stats-title">Module 3.7 — post-iOS15 metrics that actually work · from xlsx template</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-metric">
+        <div class="sm-name">EPS</div>
+        <div class="sm-full">Earnings Per Send</div>
+        <div class="sm-formula">Revenue ÷ Unique Sends</div>
+        <div class="sm-meaning">Single best score for the entire list</div>
+      </div>
+      <div class="stat-metric">
+        <div class="sm-name">EPO</div>
+        <div class="sm-full">Earnings Per Open</div>
+        <div class="sm-formula">Revenue ÷ Unique Opens</div>
+        <div class="sm-meaning">Copy effectiveness once they're in</div>
+      </div>
+      <div class="stat-metric">
+        <div class="sm-name">EPC</div>
+        <div class="sm-full">Earnings Per Click</div>
+        <div class="sm-formula">Revenue ÷ Unique Clicks</div>
+        <div class="sm-meaning">Landing page + offer quality</div>
+      </div>
+      <div class="stat-metric">
+        <div class="sm-name">PPM</div>
+        <div class="sm-full">Revenue Per Thousand Sends</div>
+        <div class="sm-formula">Revenue × 1000 ÷ Sends</div>
+        <div class="sm-meaning">Benchmarkable across lists</div>
+      </div>
+    </div>
+    <div class="stats-why">Weekly tracking template provided as xlsx. Tabs for: Overall · Broadcasts · Automation 1, 2, 3... Compare flow revenue % vs broadcast revenue % each week. Kill anything below average EPS.</div>
+  </div>
+
+  <!-- 8F: Mapping to UGC World -->
+  <div class="map-section">
+    <div class="map-head">
+      <span class="map-tag">YOUR MAPPING</span>
+      <div class="map-title">Ericson's SOPs vs your stack today</div>
+    </div>
+    <table class="map-table">
+      <thead>
+        <tr><th>Ericson SOP</th><th>UGC World equivalent</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Strategy doc per account</td><td>_context/(C) Messaging Cockpit</td><td class="ok">✓ Exists</td></tr>
+        <tr><td>First 3 ESP checks (open ≥15% / content / 5 autos)</td><td>Open rate audit · Gloria voice · 5 autos</td><td class="warn">⚠ Needs audit</td></tr>
+        <tr><td>Abandoned Cart 7-email</td><td>Webinar replay push (Flow A)</td><td class="warn">✓ 5 emails — extend to 7</td></tr>
+        <tr><td>Buyer Welcome 6 + anniversary</td><td>Skool 7-day + post-purchase</td><td class="warn">✓ Skool exists, add anniversary</td></tr>
+        <tr><td><strong>Opt-in Welcome 30-email</strong></td><td><strong>Webinar reg / Skool join → broadcast</strong></td><td class="bad"><strong>✗ MISSING — biggest gap</strong></td></tr>
+        <tr><td>Upsell automation</td><td>Post-call upsell tier</td><td class="bad">✗ Missing</td></tr>
+        <tr><td>Downsell automation</td><td>$X decline → low-ticket bundle</td><td class="bad">✗ Missing</td></tr>
+        <tr><td>Follow-Up Automation (+12%)</td><td>VSL abandon · form abandon · no-show</td><td class="warn">⚠ Partial (no-show only)</td></tr>
+        <tr><td><strong>Reply Email format</strong></td><td><strong>Gloria's engaged-30d DM funnel</strong></td><td class="bad"><strong>✗ Not used — KEY UNLOCK</strong></td></tr>
+        <tr><td>EPS / EPO / EPC / PPM weekly</td><td>Per-broadcast revenue tracking</td><td class="bad">✗ Open rate only currently</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 8G: Verdict + Big Move -->
+  <div class="ericson-verdict">
+    <span class="verdict-tag">THE BIG MOVE</span>
+    <p>Your current Skool 7-day = 7 emails. Ericson would say <strong class="red-text">not enough.</strong> The Ericson move: every new opt-in (webinar reg, Skool join, VSL view) enters a <strong>30-email tailored welcome over 3-4 weeks.</strong></p>
+    <p><strong>Phase 1 (E1-4, 2/day):</strong> case study + reply-farm Q + PROOF stack + 12-Q FAQ. <strong>Phase 2 (E5-15, daily):</strong> reuse your 10 best-ever broadcasts as the welcome series. <strong>Phase 3 (E16-30, daily):</strong> deep stories + how-to + soft asks. THEN graduate to daily broadcasts.</p>
+    <p><strong>Effect:</strong> every opt-in gets a personalized 4-week pitch sequence instead of generic nurture. Stop nurturing — start <strong class="green-text">tailored selling.</strong></p>
   </div>
 </section>
 
